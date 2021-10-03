@@ -45,7 +45,6 @@ class BottomDialog extends StatelessWidget {
                       overflow: TextOverflow.visible,
                     ),
                   ),
-                  Spacer(),
                   Expanded(
                     child: IconButton(
                       color: Theme.of(context).accentColor,
