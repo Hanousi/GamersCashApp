@@ -18,7 +18,8 @@ class ProductDetailsScreen extends StatefulWidget {
   HomeScreenState home;
   bool isFromSale = false;
 
-  ProductDetailsScreen({Key key, this.product, this.home, this.isFromSale}) : super(key: key);
+  ProductDetailsScreen({Key key, this.product, this.home, this.isFromSale})
+      : super(key: key);
 
   @override
   _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
@@ -135,26 +136,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  product.compareAtPrice != null
-                      ? Text(
-                          '${formatCurrency.format(double.parse(product.compareAtPrice)) + ' JD'}',
-                          style: TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        )
-                      : Container(),
-                  Text(
-                    '${formatCurrency.format(double.parse(product.price))} JD',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  )
-                ],
+              Expanded(
+                child: Column(
+                  children: [
+                    product.compareAtPrice != null
+                        ? Text(
+                            '${formatCurrency.format(double.parse(product.compareAtPrice)) + ' JD'}',
+                            style: TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          )
+                        : Container(),
+                    Text(
+                      '${formatCurrency.format(double.parse(product.price))} JD',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -281,20 +284,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             width: double.infinity,
-            child: widget.home != null ? RaisedButton(
-                padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                onPressed: () => _isAddedToBag ? goToCart() : addProductToCart(),
-                color: _isAddedToBag
-                    ? AppColors.grey
-                    : _getColor(product.productType),
-                child: Text(
-                  _isAddedToBag ? 'GO TO BAG' : 'ADD TO BAG',
-                  style: whiteText,
-                )) : Container(),
-          )
-      ),
+            child: widget.home != null
+                ? RaisedButton(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                    onPressed: () =>
+                        _isAddedToBag ? goToCart() : addProductToCart(),
+                    color: _isAddedToBag
+                        ? AppColors.grey
+                        : _getColor(product.productType),
+                    child: Text(
+                      _isAddedToBag ? 'GO TO BAG' : 'ADD TO BAG',
+                      style: whiteText,
+                    ))
+                : Container(),
+          )),
     );
   }
 
