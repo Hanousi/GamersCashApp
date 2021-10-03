@@ -127,7 +127,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: width * 0.68,
+                width: width * 0.64,
                 child: Text(
                   product.title,
                   style: TextStyle(
@@ -138,6 +138,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               Expanded(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     product.compareAtPrice != null
                         ? Text(
