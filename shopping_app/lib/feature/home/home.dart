@@ -64,7 +64,7 @@ class HomeScreenState extends State<HomeScreen> {
             ]),
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 22.0, vertical: 8.0),
+                  const EdgeInsets.only(left: 22.0, right: 22, bottom: 16.0, top: 8),
               child: GNav(
                 gap: 8,
                 activeColor: Colors.white,
