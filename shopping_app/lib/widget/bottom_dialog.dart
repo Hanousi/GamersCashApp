@@ -46,21 +46,21 @@ class BottomDialog extends StatelessWidget {
                     ),
                   ),
                   Spacer(),
-                  IconButton(
-                    color: Theme.of(context).accentColor,
-                    visualDensity: VisualDensity.compact,
-                    icon: Icon(Ionicons.ios_close_circle_outline),
-                    onPressed: () => Navigator.pop(context),
-                  )
+                  Expanded(
+                    child: IconButton(
+                      color: Theme.of(context).accentColor,
+                      visualDensity: VisualDensity.compact,
+                      icon: Icon(Ionicons.ios_close_circle_outline),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
                 ],
               ),
             ),
             Expanded(
                 child: Scrollbar(
               child: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: child),
+                child: Padding(padding: const EdgeInsets.all(20), child: child),
                 scrollDirection: Axis.vertical,
               ),
             )),
