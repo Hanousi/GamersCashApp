@@ -39,6 +39,13 @@ const headingText = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const prizeText = TextStyle(
+  color: AppColors.white,
+  fontSize: 24,
+  fontStyle: FontStyle.normal,
+  fontWeight: FontWeight.normal,
+);
+
 const headingTextWhite = TextStyle(
   color: AppColors.white,
   fontSize: 24,

@@ -15,4 +15,6 @@ class Icon {
   String snkr01 = 'assets/images/snkr_01.png';
   String snkr02 = 'assets/images/snkr_02.png';
   String snkr03 = 'assets/images/snkr_03.png';
+
+  String advert = 'assets/images/advert.jpg';
 }

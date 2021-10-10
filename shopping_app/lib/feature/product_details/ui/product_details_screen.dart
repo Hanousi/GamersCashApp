@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:shopping_app/feature/discover/model/product.dart';
 import 'package:shopping_app/feature/home/home.dart';
 import 'package:shopping_app/feature/product_details/bloc/product_details_bloc.dart';
+import 'package:shopping_app/resources/app_data.dart';
 import 'package:shopping_app/resources/app_theme.dart';
 import 'package:shopping_app/resources/colors.dart';
 import 'package:shopping_app/route/route_constants.dart';
@@ -17,8 +19,10 @@ class ProductDetailsScreen extends StatefulWidget {
   final Product product;
   HomeScreenState home;
   bool isFromSale = false;
+  bool isFromPrize = false;
 
-  ProductDetailsScreen({Key key, this.product, this.home, this.isFromSale})
+  ProductDetailsScreen(
+      {Key key, this.product, this.home, this.isFromSale, this.isFromPrize})
       : super(key: key);
 
   @override
@@ -28,6 +32,7 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   final formatCurrency = NumberFormat.currency(symbol: '', decimalDigits: 3);
   var _isSelectedSize = false;
+  var isSubscribed = false;
   var _currentIndexSize = 0;
 
   Product product;
@@ -37,6 +42,104 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   double width;
 
+  Future<void> _showModal() async {
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _emailController = TextEditingController();
+    TextEditingController _numberController = TextEditingController();
+
+    await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text('Enter details to subscribe!'),
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 0,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 250,
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Enter your Name',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250,
+                        child: TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Enter your email',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 250,
+                        child: TextField(
+                          controller: _numberController,
+                          decoration: InputDecoration(
+                            labelText: 'Enter your Phone Number',
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          RaisedButton(
+                            // Or with variable in the class
+                            onPressed: AppData.hasSubscribed | isSubscribed ? null : () async {
+                              await _sendEmail(_nameController.text, _emailController.text, _numberController.text);
+                              _changeState();
+                              Navigator.pop(context);
+                            },
+                            child: Text('Subscribe'),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
+          );
+        });
+  }
+
+  _sendEmail(String name, String email, String number) async {
+    String username = 'gamerscashprizes@gmail.com';
+    String password = 'Malik12345';
+
+    final smtpServer = gmail(username, password);
+
+    final message = Message()
+      ..from = Address(username, 'GamersCash')
+      ..recipients.add('gamerscashprizes@gmail.com')
+      ..subject = name
+      ..text = 'Email: ${email}, Number: ${number}';
+
+    try {
+      await send(message, smtpServer);
+    } on MailerException catch (e) {
+      print(e);
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+  }
+
+  void _changeState() {
+    setState(() {
+      AppData.hasSubscribed = true;
+      isSubscribed = true;
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -291,13 +394,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),
-                    onPressed: () =>
-                        _isAddedToBag ? goToCart() : addProductToCart(),
+                    onPressed: () => widget.isFromPrize
+                        ? _showModal()
+                        : _isAddedToBag
+                            ? goToCart()
+                            : addProductToCart(),
                     color: _isAddedToBag
                         ? AppColors.grey
                         : _getColor(product.productType),
                     child: Text(
-                      _isAddedToBag ? 'GO TO BAG' : 'ADD TO BAG',
+                      widget.isFromPrize
+                          ? 'اضغط هنا للاشتراك'
+                          : _isAddedToBag
+                              ? 'GO TO BAG'
+                              : 'ADD TO BAG',
                       style: whiteText,
                     ))
                 : Container(),

@@ -24,11 +24,13 @@ class AppRouter {
         Product product = (settings.arguments as ScreenArguments).product;
         HomeScreenState home = (settings.arguments as ScreenArguments).home;
         bool isFromSale = (settings.arguments as ScreenArguments).isFromSale;
+        bool isFromPrize = (settings.arguments as ScreenArguments).isFromPrize;
         return SlideRouteBuilder(
             page: ProductDetailsScreen(
               product: product,
               home: home,
               isFromSale: isFromSale ?? false,
+              isFromPrize: isFromPrize ?? false
         ));
       case RouteConstant.loginRoute:
         return SlideRouteBuilder(page: LoginScreen());

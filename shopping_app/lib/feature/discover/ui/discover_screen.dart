@@ -19,8 +19,9 @@ class ScreenArguments {
   final Product product;
   final HomeScreenState home;
   bool isFromSale = false;
+  bool isFromPrize = false;
 
-  ScreenArguments({this.product, this.home, this.isFromSale});
+  ScreenArguments({this.product, this.home, this.isFromSale, this.isFromPrize});
 }
 
 class DiscoverScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
   List<Product> listProduct;
   List<Product> onSale;
+  Product prizeProduct;
 
   @override
   void initState() {
@@ -66,6 +68,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, RouteConstant.productDetailsRoute,
+                    arguments: ScreenArguments(
+                        product: prizeProduct,
+                        home: widget.home,
+                        isFromPrize: true));
+              },
+              child: Container(child: Image.asset(R.icon.advert)),
+            ),
             Container(height: 70, child: _buildListCategory()),
             Row(
               children: [
@@ -238,6 +250,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
         if (state is DiscoverLoadFinished) {
           listProduct = state.products;
+          prizeProduct = state.prize;
           AppData.cartId ??= state.cartId;
         }
 
@@ -251,7 +264,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 onTapCard: () {
                   Navigator.pushNamed(
                       context, RouteConstant.productDetailsRoute,
-                      arguments: ScreenArguments(product: product, home: widget.home));
+                      arguments:
+                          ScreenArguments(product: product, home: widget.home));
                 },
               );
             });

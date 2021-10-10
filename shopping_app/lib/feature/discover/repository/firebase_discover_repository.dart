@@ -16,6 +16,16 @@ class FirebaseDiscoverRepository extends DiscoverRepository {
   }
 
   @override
+  Future<List<Product>> getPrizeProduct() async {
+    try {
+      ShopifyStore shopifyStore = ShopifyStore.instance;
+      return await shopifyStore.getPrizeProduct();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
   Future<List<Product>> getSearchProduct(String query) async {
     try {
       ShopifyStore shopifyStore = ShopifyStore.instance;

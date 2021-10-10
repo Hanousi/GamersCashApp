@@ -14,6 +14,7 @@ class AppData {
   ];
 
   static String cartId;
+  static bool hasSubscribed = false;
 }
 
 enum AppSettings {

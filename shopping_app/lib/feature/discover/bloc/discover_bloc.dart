@@ -46,12 +46,14 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
     List<Product> productList = await _discoverRepository.getListProduct(
         event.category, event.productType);
     List<Product> salesList = await _discoverRepository.getOnSaleProducts();
+    List<Product> prize = await _discoverRepository.getPrizeProduct();
     String cartId = await _discoverRepository.createCart();
 
     yield DiscoverLoadFinished(
         products: productList,
         onSale: salesList,
         cartId: cartId,
+        prize: prize.first,
         isSuccess: true);
   }
 
