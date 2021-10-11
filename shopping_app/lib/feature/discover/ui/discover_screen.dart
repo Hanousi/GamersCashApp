@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:shopping_app/resources/resources.dart';
 import 'package:shopping_app/route/route_constants.dart';
 import 'package:shopping_app/widget/appbar.dart';
 import 'package:shopping_app/widget/card_product.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../route/route_constants.dart';
 import '../bloc/discover_bloc.dart';
@@ -40,19 +43,23 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   var _isSelectedProductType = false;
   var _currentIndexProductType = 0;
 
-  String _currentProductType = 'New';
-  String _currentCategory = 'PC';
+  String _currentProductType = 'جديد';
+  String _currentCategory = 'سماعات';
 
   double width;
   double height;
 
   List<Product> listProduct;
+  List<Product> allProducts;
   List<Product> onSale;
   Product prizeProduct;
+
+  ScrollController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController();
     context.bloc<DiscoverBloc>().add(LoadingDiscoverEvent(
         category: categories[_currentIndexCategory],
         productType: ProductType.values()[_currentIndexProductType]));
@@ -92,12 +99,72 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               ],
             ),
             Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Container(
+                height: 80,
+                color: Colors.black,
+                child: Row(
+                  children: [
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: GestureDetector(
+                          onTap: () async {
+                            await _launchURL(
+                                'https://www.instagram.com/gamers_cash/');
+                          },
+                          child: Image.asset(
+                            R.icon.instagram,
+                            height: 60,
+                          )),
+                    ),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: GestureDetector(
+                          onTap: () async {
+                            await _launchURL(
+                                'https://www.facebook.com/Gamers.Cash.jo/');
+                          },
+                          child: Image.asset(
+                            R.icon.facebook,
+                            height: 55,
+                          )),
+                    ),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: GestureDetector(
+                          onTap: () async {
+                            await _launchURL(
+                                'https://m.youtube.com/channel/UCZGFd9G1hj1PnEFcPuwadfQ');
+                          },
+                          child: Image.asset(
+                            R.icon.youtube,
+                            height: 40,
+                          )),
+                    ),
+                    Flexible(
+                      fit: FlexFit.tight,
+                      child: GestureDetector(
+                          onTap: () async {
+                            await _launchURL(
+                                'https://vm.tiktok.com/ZSe87wjdL/');
+                          },
+                          child: Image.asset(
+                            R.icon.tiktok,
+                            height: 50,
+                          )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Image.asset(R.icon.delivery),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'On Sale',
+                    'منتجات',
                     style: headingText,
                   ),
                   IconButton(
@@ -108,7 +175,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         Navigator.pushNamed(
                             context, RouteConstant.productCategory, arguments: {
                           "listProduct": onSale,
-                          "categoryName": "On Sale",
+                          "categoryName": "منتجات",
                           "home": widget.home
                         });
                       })
@@ -117,18 +184,16 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: _buildSaleList()
-                // Container(
-                //   height: width * 0.5,
-                //   child: _buildSaleList(),
-                // ),
-                // Row(
-                //   children: [
-                //     Flexible(flex: 2, child: _buildCardBottomNew()),
-                //     Flexible(flex: 2, child: _buildCardBottomNew())
-                //   ],
-                // ),
-                )
+                child: _buildSaleList()),
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                child: Text(
+                  'اذا كان هناك خطأ في التطبيق او عدم معرفة طريقة الطلب يمكنك الاتصال بنا | 0791433878',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
           ],
         ));
   }
@@ -249,25 +314,64 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         listProduct = [];
 
         if (state is DiscoverLoadFinished) {
-          listProduct = state.products;
+          allProducts = state.products;
+          listProduct = state.products != null
+              ? state.products
+                  .where((element) => element.tags
+                      .contains(ProductType.values()[_currentIndexProductType]))
+                  .toList()
+              : [];
+          if (listProduct.isNotEmpty) {
+            listProduct.add(Product());
+          }
           prizeProduct = state.prize;
           AppData.cartId ??= state.cartId;
+
+          if (_controller.hasClients) {
+            _controller.jumpTo(_controller.position.minScrollExtent);
+          }
+        } else if (state is StartDiscoverLoad) {
+          return Padding(
+            padding: EdgeInsets.all(150),
+            child: CircularProgressIndicator(),
+          );
         }
 
         return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: listProduct.length,
+            controller: _controller,
             itemBuilder: (context, index) {
               var product = listProduct[index];
-              return CardProduct(
-                product: product,
-                onTapCard: () {
-                  Navigator.pushNamed(
-                      context, RouteConstant.productDetailsRoute,
-                      arguments:
-                          ScreenArguments(product: product, home: widget.home));
-                },
-              );
+              if (index == listProduct.length - 1) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteConstant.productCategory,
+                        arguments: {
+                          "listProduct": allProducts,
+                          "categoryName": categories[_currentIndexCategory],
+                          "home": widget.home
+                        });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Image.asset(
+                      R.icon.more,
+                      width: 100,
+                    ),
+                  ),
+                );
+              } else {
+                return CardProduct(
+                  product: product,
+                  onTapCard: () {
+                    Navigator.pushNamed(
+                        context, RouteConstant.productDetailsRoute,
+                        arguments: ScreenArguments(
+                            product: product, home: widget.home));
+                  },
+                );
+              }
             });
       },
     );
@@ -340,5 +444,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
 
     BlocProvider.of<DiscoverBloc>(context).add(LoadingDiscoverEvent(
         category: _currentCategory, productType: _currentProductType));
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

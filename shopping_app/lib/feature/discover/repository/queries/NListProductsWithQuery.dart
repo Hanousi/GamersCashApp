@@ -13,6 +13,7 @@ query($n : Int, $myQuery : String){
               id
               price
               compareAtPrice
+              availableForSale
             }
           }
         }

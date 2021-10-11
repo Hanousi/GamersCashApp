@@ -53,7 +53,7 @@ class _CartScreenState extends State<CartScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'My Bag',
+                                  'السلة',
                                   style: headingText,
                                 ),
                                 Text('Total ${cart.listCartItem.length} items')
@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Total',
+                'المجموع',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(
@@ -142,7 +142,7 @@ class _CartScreenState extends State<CartScreen> {
           onPressed: _launchURL,
           color: AppColors.indianRed,
           child: Text(
-            'Checkout',
+            'اطلب الان',
             style: whiteText,
           )),
     );

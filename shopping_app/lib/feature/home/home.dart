@@ -79,11 +79,11 @@ class HomeScreenState extends State<HomeScreen> {
                   ),
                   GButton(
                     icon: Ionicons.ios_search,
-                    text: 'Search',
+                    text: 'البحث',
                   ),
                   GButton(
                     icon: Ionicons.ios_cart,
-                    text: 'Cart',
+                    text: 'السلة',
                   ),
                 ],
                 selectedIndex: _currentIndex,

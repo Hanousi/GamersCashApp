@@ -6,10 +6,10 @@ class FirebaseDiscoverRepository extends DiscoverRepository {
   final discoverCollection = [];
 
   @override
-  Future<List<Product>> getListProduct(String tag1, String tag2) async {
+  Future<List<Product>> getListProduct(String category) async {
     try {
       ShopifyStore shopifyStore = ShopifyStore.instance;
-      return await shopifyStore.getNProducts(6, "tag:${tag1} AND tag:${tag2}");
+      return await shopifyStore.getNProductsFromCollection(250, category);
     } catch (e) {
       print(e);
     }

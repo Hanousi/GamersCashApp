@@ -19,6 +19,8 @@ class CardProduct extends StatelessWidget {
         return Colors.green;
       case 'Nintendo':
         return Colors.red;
+      default:
+        return Colors.blue;
     }
   }
 
@@ -26,6 +28,7 @@ class CardProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTap: onTapCard,
       child: Stack(

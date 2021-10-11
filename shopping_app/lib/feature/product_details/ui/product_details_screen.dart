@@ -51,7 +51,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text('Enter details to subscribe!'),
+            title: Text('ادخل المعلومات للاشتراك في المسابقة'),
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: TextField(
                           controller: _nameController,
                           decoration: const InputDecoration(
-                            labelText: 'Enter your Name',
+                            labelText: 'الاسم',
                           ),
                         ),
                       ),
@@ -76,7 +76,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: TextField(
                           controller: _emailController,
                           decoration: InputDecoration(
-                            labelText: 'Enter your email',
+                            labelText: 'البريد الاكتروني',
                           ),
                         ),
                       ),
@@ -85,7 +85,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         child: TextField(
                           controller: _numberController,
                           decoration: InputDecoration(
-                            labelText: 'Enter your Phone Number',
+                            labelText: 'رقم الهاتف',
                           ),
                         ),
                       ),
@@ -94,12 +94,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         children: [
                           RaisedButton(
                             // Or with variable in the class
-                            onPressed: AppData.hasSubscribed | isSubscribed ? null : () async {
-                              await _sendEmail(_nameController.text, _emailController.text, _numberController.text);
-                              _changeState();
-                              Navigator.pop(context);
-                            },
-                            child: Text('Subscribe'),
+                            onPressed: AppData.hasSubscribed | isSubscribed
+                                ? null
+                                : () async {
+                                    await _sendEmail(
+                                        _nameController.text,
+                                        _emailController.text,
+                                        _numberController.text);
+                                    _changeState();
+                                    Navigator.pop(context);
+                                  },
+                            child: Text('اشتراك'),
                           )
                         ],
                       ),
@@ -140,6 +145,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       isSubscribed = true;
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -394,20 +400,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0)),
-                    onPressed: () => widget.isFromPrize
-                        ? _showModal()
-                        : _isAddedToBag
-                            ? goToCart()
-                            : addProductToCart(),
+                    onPressed: () => !product.outOfStock
+                        ? null
+                        : widget.isFromPrize
+                            ? _showModal()
+                            : _isAddedToBag
+                                ? goToCart()
+                                : addProductToCart(),
                     color: _isAddedToBag
                         ? AppColors.grey
                         : _getColor(product.productType),
                     child: Text(
-                      widget.isFromPrize
-                          ? 'اضغط هنا للاشتراك'
-                          : _isAddedToBag
-                              ? 'GO TO BAG'
-                              : 'ADD TO BAG',
+                      !product.outOfStock
+                          ? 'إنتهى من المخزن'
+                          : widget.isFromPrize
+                              ? 'اضغط هنا للاشتراك'
+                              : _isAddedToBag
+                                  ? 'GO TO BAG'
+                                  : 'ADD TO BAG',
                       style: whiteText,
                     ))
                 : Container(),

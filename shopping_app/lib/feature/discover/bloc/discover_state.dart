@@ -32,6 +32,10 @@ class DiscoverLoadFinished extends DiscoverState {
   }
 }
 
+class StartDiscoverLoad extends DiscoverState {
+
+}
+
 class DiscoverLoadOnSaleFinished extends DiscoverState {
   final bool isSuccess;
   final List<Product> products;

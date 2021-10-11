@@ -43,8 +43,10 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
 
   Stream<DiscoverState> _mapLoadDiscoverEvent(
       LoadingDiscoverEvent event) async* {
+    yield StartDiscoverLoad();
+
     List<Product> productList = await _discoverRepository.getListProduct(
-        event.category, event.productType);
+        event.category);
     List<Product> salesList = await _discoverRepository.getOnSaleProducts();
     List<Product> prize = await _discoverRepository.getPrizeProduct();
     String cartId = await _discoverRepository.createCart();

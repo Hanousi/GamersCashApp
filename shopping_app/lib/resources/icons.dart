@@ -17,4 +17,12 @@ class Icon {
   String snkr03 = 'assets/images/snkr_03.png';
 
   String advert = 'assets/images/advert.jpg';
+  String delivery = 'assets/images/delivery.jpg';
+  String more = 'assets/images/more_icon.png';
+
+  String instagram = 'assets/images/Instagram-logo.png';
+  String facebook = 'assets/images/Facebook-logo.png';
+  String youtube = 'assets/images/YouTube-Emblem.png';
+  String tiktok = 'assets/images/tik-tok-logo.png';
+
 }

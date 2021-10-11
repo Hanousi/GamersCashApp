@@ -13,6 +13,7 @@ query(){
               id
               price
               compareAtPrice
+              availableForSale
             }
           }
         }
