@@ -187,7 +187,7 @@ class _CartScreenState extends State<CartScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.45,
                 child: Text(
                   cartItem.product.title,
                   maxLines: 2,
