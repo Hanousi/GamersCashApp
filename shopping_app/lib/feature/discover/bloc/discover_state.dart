@@ -13,12 +13,14 @@ class DiscoverLoadFinished extends DiscoverState {
   final bool isSuccess;
   final List<Product> products;
   final List<Product> onSale;
+  final Product prize;
   final String cartId;
 
   DiscoverLoadFinished(
       {this.products = const [],
       this.isSuccess = false,
       this.cartId = '',
+      this.prize,
       this.onSale = const []});
 
   @override
@@ -28,6 +30,10 @@ class DiscoverLoadFinished extends DiscoverState {
   String toString() {
     return 'DiscoverLoadFinished{products: $products}';
   }
+}
+
+class StartDiscoverLoad extends DiscoverState {
+
 }
 
 class DiscoverLoadOnSaleFinished extends DiscoverState {

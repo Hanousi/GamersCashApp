@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:shopping_app/resources/R.dart';
 
 class ProductType {
-  static const UPCOMMING = 'Upcoming';
-  static const FEATURED = 'Featured';
-  static const NEW = 'New';
+  static const UPCOMMING = 'قريبا';
+  static const FEATURED = 'الأكثر طلب';
+  static const NEW = 'جديد';
 
-  static List<String> values() => [NEW, FEATURED, UPCOMMING];
+  static List<String> values() => [NEW, FEATURED];
 }
 
 class ShopifyImage {
@@ -63,6 +63,8 @@ class Products {
 class Product {
   final String id;
   final String merchandiseId;
+  final bool outOfStock;
+  final List<dynamic> tags;
   String title, description, productType, compareAtPrice, price;
   List<ShopifyImage> images;
 
@@ -72,6 +74,8 @@ class Product {
     this.images,
     this.title,
     this.price,
+    this.tags,
+    this.outOfStock,
     this.compareAtPrice,
     this.productType,
     this.description,
@@ -99,11 +103,14 @@ class Product {
     return Product(
         id: (json['node'] ?? const {})['id'],
         title: (json['node'] ?? const {})['title'],
+        tags: _getTagList((json['node'] ?? const {})['tags']),
         description: (json['node'] ?? const {})['description'],
         price: (json['node'] ?? const {})['variants']['edges'][0]['node']
             ['price'],
         merchandiseId: (json['node'] ?? const {})['variants']['edges'][0]
             ['node']['id'],
+        outOfStock: (json['node'] ?? const {})['variants']['edges'][0]
+        ['node']['availableForSale'],
         compareAtPrice: (json['node'] ?? const {})['variants']['edges'][0]
             ['node']['compareAtPrice'],
         productType: (json['node'] ?? const {})['productType'],
@@ -116,15 +123,12 @@ class Product {
         id: (json ?? const {})['id'],
         title: (json ?? const {})['title'],
         description: (json ?? const {})['description'],
-        price: (json ?? const {})['variants']['edges'][0]['node']
-        ['price'],
-        merchandiseId: (json ?? const {})['variants']['edges'][0]
-        ['node']['id'],
-        compareAtPrice: (json ?? const {})['variants']['edges'][0]
-        ['node']['compareAtPrice'],
+        price: (json ?? const {})['variants']['edges'][0]['node']['price'],
+        merchandiseId: (json ?? const {})['variants']['edges'][0]['node']['id'],
+        compareAtPrice: (json ?? const {})['variants']['edges'][0]['node']
+            ['compareAtPrice'],
         productType: (json ?? const {})['productType'],
-        images:
-        _getImageList((json ?? const {})['images'] ?? const {}));
+        images: _getImageList((json ?? const {})['images'] ?? const {}));
   }
 
   static _getImageList(Map<String, dynamic> json) {
@@ -134,6 +138,18 @@ class Product {
           imageList.add(ShopifyImage.fromJson(image['node'] ?? const {})));
     }
     return imageList;
+  }
+
+  static _getTagList(List<Object> list) {
+    List<String> tagList = [];
+    try {
+      list.forEach((element) {
+        tagList.add(element as String);
+      });
+    } catch (e) {
+      return [];
+    }
+    return tagList;
   }
 
   Map<String, dynamic> toMapSql() {
@@ -152,4 +168,14 @@ class Product {
   }
 }
 
-List<String> categories = ['PC', 'PlayStation', 'XBox', 'Nintendo'];
+List<String> categories = [
+  'سماعات',
+  'كيبوردات',
+  'ماوسات',
+  'كرسي وطاولة',
+  'اكسسوارات و انارة للغرفة',
+  'جميع اكسسوارات الكمبيوتر',
+  'جميع اكسسوارات البلايستيشن',
+  'ادوات تصوير و مايكات',
+  'بطاقات'
+];

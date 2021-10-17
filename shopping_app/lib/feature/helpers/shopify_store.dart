@@ -1,8 +1,11 @@
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:shopping_app/feature/cart/models/cart.dart';
 import 'package:shopping_app/feature/cart/models/cart_item.dart';
 import 'package:shopping_app/feature/cart/repository/queries/get_cart.dart';
 import 'package:shopping_app/feature/cart/repository/queries/remove_from_cart.dart';
 import 'package:shopping_app/feature/cart/repository/queries/update_cart_item.dart';
+import 'package:shopping_app/feature/discover/repository/queries/NListProductsWithCollectionQuery.dart';
+import 'package:shopping_app/feature/discover/repository/queries/PrizeProductQuery.dart';
 import 'package:shopping_app/feature/product_details/repository/queries/add_to_cart.dart';
 import 'package:shopping_app/resources/app_data.dart';
 
@@ -31,6 +34,39 @@ class ShopifyStore with ShopifyError {
       'n': n,
       'myQuery': query,
     });
+    final QueryResult result = await _graphQLClient.query(_options);
+    checkForError(result);
+    productList =
+        (Products.fromJson((result?.data ?? const {})["products"] ?? {}))
+            .productList;
+
+    // _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+
+    return productList;
+  }
+
+  Future<List<Product>> getNProductsFromCollection(int n, String category) async {
+    assert(n != null);
+    assert(category != null);
+    List<Product> productList = [];
+    final WatchQueryOptions _options =
+    WatchQueryOptions(document: gql(getNProductsWithCollectionQuery), variables: {
+      'n': n,
+      'category': 'title:${category}'
+    });
+    final QueryResult result = await _graphQLClient.query(_options);
+    checkForError(result);
+    productList =
+        (Products.fromJson((result?.data ?? const {})["collections"]["edges"][0]["node"]["products"] ?? {}))
+            .productList;
+
+    return productList;
+  }
+
+  Future<List<Product>> getPrizeProduct() async {
+    List<Product> productList = [];
+    final WatchQueryOptions _options =
+    WatchQueryOptions(document: gql(getPrizeProductQuery));
     final QueryResult result = await _graphQLClient.query(_options);
     checkForError(result);
     productList =

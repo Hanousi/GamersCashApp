@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class CommonAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -11,24 +12,36 @@ class CommonAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    const colorizeColors = [
+      Colors.purple,
+      Colors.blue,
+      Colors.yellow,
+      Colors.red,
+    ];
+
+    const colorizeTextStyle = TextStyle(
+      fontSize: 24.0,
+      fontFamily: 'Horizon',
+    );
+
     return AppBar(
-        elevation: 0,
-        backgroundColor: color ?? Colors.grey[100],
-        titleSpacing: 0.0,
-        title: Padding(
-          padding: EdgeInsets.only(top: 20.00),
-          child: Center(
-            child: Text(
+      elevation: 0,
+      backgroundColor: color ?? Colors.grey[100],
+      titleSpacing: 0.0,
+      title: Padding(
+        padding: EdgeInsets.only(top: 20.00),
+        child: Center(
+            child: AnimatedTextKit(
+          animatedTexts: [
+            ColorizeAnimatedText(
               title,
-              style: TextStyle(
-                color: textColor ?? Colors.black,
-                fontSize: 24,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-              ),
+              textStyle: colorizeTextStyle,
+              colors: colorizeColors,
             ),
-          ),
-        ));
+          ],
+        )),
+      ),
+    );
   }
 
   @override
