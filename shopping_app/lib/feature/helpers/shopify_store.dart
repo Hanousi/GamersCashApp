@@ -40,7 +40,7 @@ class ShopifyStore with ShopifyError {
         (Products.fromJson((result?.data ?? const {})["products"] ?? {}))
             .productList;
 
-    _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
+    // _graphQLClient.cache.writeQuery(_options.asRequest, data: null);
 
     return productList;
   }

@@ -149,11 +149,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   _launchURL() async {
-    if (await canLaunch(thisCart.url)) {
-      await launch(thisCart.url);
-    } else {
-      throw 'Could not launch ${thisCart.url}';
-    }
+    await launch(thisCart.url);
   }
 
   Widget _cartItem(CartItem cartItem) {

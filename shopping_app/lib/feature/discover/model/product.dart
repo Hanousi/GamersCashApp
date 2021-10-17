@@ -7,7 +7,7 @@ class ProductType {
   static const FEATURED = 'الأكثر طلب';
   static const NEW = 'جديد';
 
-  static List<String> values() => [NEW, FEATURED, UPCOMMING];
+  static List<String> values() => [NEW, FEATURED];
 }
 
 class ShopifyImage {

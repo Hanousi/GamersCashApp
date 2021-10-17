@@ -1,9 +1,9 @@
 const String getOnSaleCollectionQuery = r'''
 {
-	collections(query: "title:On Sale", first: 1) {
+	collections(query: "title:عروض اسبوعية", first: 1) {
     edges {
       node {
-        products(first: 6) {
+        products(first: 250) {
           edges {
             node {
               id,
@@ -16,6 +16,7 @@ const String getOnSaleCollectionQuery = r'''
                     id
                     price
                     compareAtPrice
+                    availableForSale
                   }
                 }
               }

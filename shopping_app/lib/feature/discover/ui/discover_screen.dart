@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shopping_app/feature/discover/bloc/discover_bloc.dart';
 import 'package:shopping_app/feature/discover/model/product.dart';
 import 'package:shopping_app/feature/home/home.dart';
@@ -164,7 +165,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'منتجات',
+                    'عروض أسبوعية',
                     style: headingText,
                   ),
                   IconButton(
@@ -175,7 +176,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         Navigator.pushNamed(
                             context, RouteConstant.productCategory, arguments: {
                           "listProduct": onSale,
-                          "categoryName": "منتجات",
+                          "categoryName": "عروض أسبوعية",
                           "home": widget.home
                         });
                       })
@@ -333,7 +334,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         } else if (state is StartDiscoverLoad) {
           return Padding(
             padding: EdgeInsets.all(150),
-            child: CircularProgressIndicator(),
+            child: HeartbeatProgressIndicator(
+              child: Icon(Icons.search),
+            ),
           );
         }
 
@@ -447,10 +450,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+    await launch(url);
   }
 }
