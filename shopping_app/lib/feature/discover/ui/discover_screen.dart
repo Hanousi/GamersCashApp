@@ -268,7 +268,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                             child: Image.network(
                               product.images[0].originalSource,
                               width: constraints.maxWidth * 0.7,
-                              height: constraints.maxHeight * 0.7,
+                              height: constraints.maxHeight * 0.6,
                             ),
                           ),
                           Column(
