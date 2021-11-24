@@ -26,6 +26,9 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     super.initState();
     BlocProvider.of<CartBloc>(context).add(CartLoadingEvent());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).unfocus();
+    });
   }
 
   @override

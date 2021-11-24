@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:fsearch/fsearch.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shopping_app/feature/cart/ui/cart_screen.dart';
 import 'package:shopping_app/feature/discover/ui/discover_screen.dart';

@@ -97,12 +97,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             onPressed: AppData.hasSubscribed | isSubscribed
                                 ? null
                                 : () async {
+                                    Navigator.pop(context);
+
                                     await _sendEmail(
                                         _nameController.text,
                                         _emailController.text,
                                         _numberController.text);
                                     _changeState();
-                                    Navigator.pop(context);
                                   },
                             child: Text('اشتراك'),
                           )
