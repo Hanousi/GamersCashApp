@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:fsearch/fsearch.dart';
 
 class SimpleBlocObserver extends BlocObserver {
   @override

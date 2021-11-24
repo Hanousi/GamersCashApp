@@ -332,6 +332,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             _controller.jumpTo(_controller.position.minScrollExtent);
           }
         } else if (state is StartDiscoverLoad) {
+          FocusScope.of(context).unfocus();
+
           return Padding(
             padding: EdgeInsets.all(150),
             child: HeartbeatProgressIndicator(
