@@ -1,10 +1,22 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/route/route_constants.dart';
 import 'feature/helpers/shopify_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'app.dart';
 import 'bloc_observer.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  FirebaseApp test = await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+}
+
+
 
 void main() async {
   ShopifyConfig.setConfig(
@@ -14,6 +26,8 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   Bloc.observer = SimpleBlocObserver();
 
   runApp(MyApp(
