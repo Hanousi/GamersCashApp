@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shopping_app/feature/discover/bloc/discover_bloc.dart';
+import 'package:shopping_app/feature/discover/bloc/prize_bloc.dart';
 import 'package:shopping_app/feature/discover/model/product.dart';
 import 'package:shopping_app/feature/home/home.dart';
 import 'package:shopping_app/resources/R.dart';
@@ -37,7 +38,7 @@ class DiscoverScreen extends StatefulWidget {
   _DiscoverScreenState createState() => _DiscoverScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> {
+class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAliveClientMixin<DiscoverScreen> {
   var _isSelectedCategory = false;
   var _currentIndexCategory = 0;
 
@@ -64,6 +65,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     context.bloc<DiscoverBloc>().add(LoadingDiscoverEvent(
         category: categories[_currentIndexCategory],
         productType: ProductType.values()[_currentIndexProductType]));
+    print('init');
+    context.bloc<PrizeBloc>().add(LoadingPrizeEvent());
   }
 
   @override
@@ -76,16 +79,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         body: ListView(
           scrollDirection: Axis.vertical,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, RouteConstant.productDetailsRoute,
-                    arguments: ScreenArguments(
-                        product: prizeProduct,
-                        home: widget.home,
-                        isFromPrize: true));
-              },
-              child: Container(child: Image.asset(R.icon.advert)),
-            ),
+            _buildCompetition(),
             Container(height: 70, child: _buildListCategory()),
             Row(
               children: [
@@ -207,14 +201,51 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         if (state is DiscoverLoadFinished) {
           onSale = state.onSale;
 
-          return Row(
+          return Column(
             children: [
-              Flexible(flex: 2, child: _buildCardBottomNew(onSale[0])),
-              Flexible(flex: 2, child: _buildCardBottomNew(onSale[1]))
+              Row(
+                children: [
+                  Flexible(flex: 2, child: _buildCardBottomNew(onSale[0])),
+                  Flexible(flex: 2, child: _buildCardBottomNew(onSale[1]))
+                ],
+              ),
+              Row(
+                children: [
+                  Flexible(flex: 2, child: _buildCardBottomNew(onSale[2])),
+                  Flexible(flex: 2, child: _buildCardBottomNew(onSale[3]))
+                ],
+              ),
             ],
           );
         }
 
+        return Row(
+          children: [],
+        );
+      },
+    );
+  }
+
+  Widget _buildCompetition() {
+    return BlocBuilder<PrizeBloc, PrizeState>(
+      builder: (context, state) {
+        if (state is DiscoverPrizeFinished) {
+          prizeProduct = state.prize;
+
+          return GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, RouteConstant.productDetailsRoute,
+                  arguments: ScreenArguments(
+                      product: prizeProduct,
+                      home: widget.home,
+                      isFromPrize: true));
+            },
+            child: prizeProduct.images.isNotEmpty
+                ? Container(
+                    child: Image.network(prizeProduct.images[0].originalSource))
+                : Container(),
+          );
+        }
         return Row(
           children: [],
         );
@@ -454,4 +485,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   _launchURL(String url) async {
     await launch(url);
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

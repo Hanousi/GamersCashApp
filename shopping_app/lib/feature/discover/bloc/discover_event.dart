@@ -28,25 +28,6 @@ class LoadingDiscoverEvent extends DiscoverEvent {
   List<Object> get props => [category, productType];
 }
 
-class LoadingWishlistEvent extends DiscoverEvent {
-  final String query;
-
-  LoadingWishlistEvent({this.query});
-
-  @override
-  List<Object> get props => [query];
-}
-
 class LoadingOnSaleEvent extends DiscoverEvent {
 
-}
-
-class WishlistUpdatedEvent extends DiscoverEvent {
-  final List<Product> products;
-
-  WishlistUpdatedEvent({this.products});
-
-
-  @override
-  List<Object> get props => [products,];
 }

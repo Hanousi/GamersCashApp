@@ -28,10 +28,6 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
       yield* _mapLoadOnSaleEvent(event);
     } else if (event is DiscoverUpdatedEvent) {
       yield* _mapDiscoverUpdatedEventToState(event);
-    } else if (event is LoadingWishlistEvent) {
-      yield* _mapLoadWishlistEvent(event);
-    } else if (event is WishlistUpdatedEvent) {
-      yield* _mapWishlistUpdatedEventToState(event);
     }
   }
 
@@ -72,18 +68,5 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
     // }).toList();
     const filterList = [];
     yield DiscoverLoadFinished(products: filterList, isSuccess: true);
-  }
-
-  Stream<DiscoverState> _mapLoadWishlistEvent(
-      LoadingWishlistEvent event) async* {
-    List<Product> productList =
-        await _discoverRepository.getSearchProduct(event.query);
-
-    yield WishlistLoadFinished(products: productList, isSuccess: true);
-  }
-
-  Stream<DiscoverState> _mapWishlistUpdatedEventToState(
-      WishlistUpdatedEvent event) async* {
-    yield WishlistLoadFinished(products: event.products, isSuccess: true);
   }
 }

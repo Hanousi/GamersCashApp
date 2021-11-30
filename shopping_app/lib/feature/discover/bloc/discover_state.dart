@@ -32,9 +32,7 @@ class DiscoverLoadFinished extends DiscoverState {
   }
 }
 
-class StartDiscoverLoad extends DiscoverState {
-
-}
+class StartDiscoverLoad extends DiscoverState {}
 
 class DiscoverLoadOnSaleFinished extends DiscoverState {
   final bool isSuccess;
@@ -49,20 +47,5 @@ class DiscoverLoadOnSaleFinished extends DiscoverState {
   @override
   String toString() {
     return 'DiscoverLoadOnSaleFinished{products: $products}';
-  }
-}
-
-class WishlistLoadFinished extends DiscoverState {
-  final bool isSuccess;
-  final List<Product> products;
-
-  WishlistLoadFinished({this.products = const [], this.isSuccess = false});
-
-  @override
-  List<Object> get props => [products.hashCode, isSuccess];
-
-  @override
-  String toString() {
-    return 'WishlistLoadFinished{products: $products}';
   }
 }

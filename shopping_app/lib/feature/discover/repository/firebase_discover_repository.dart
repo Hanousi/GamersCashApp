@@ -29,7 +29,7 @@ class FirebaseDiscoverRepository extends DiscoverRepository {
   Future<List<Product>> getSearchProduct(String query) async {
     try {
       ShopifyStore shopifyStore = ShopifyStore.instance;
-      return await shopifyStore.getNProducts(30, "title: ${query} AND available_for_sale:true");
+      return await shopifyStore.getNProducts(200, "title: ${query}");
     } catch (e) {
       print(e);
     }

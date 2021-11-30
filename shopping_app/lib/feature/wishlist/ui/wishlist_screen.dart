@@ -2,15 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fsearch/fsearch.dart';
 import 'package:intl/intl.dart';
 import 'package:shopping_app/feature/discover/ui/discover_screen.dart';
 import 'package:shopping_app/feature/home/home.dart';
-import 'package:shopping_app/resources/R.dart';
+import 'package:shopping_app/feature/wishlist/bloc/wishlist_bloc.dart';
+import 'package:shopping_app/resources/colors.dart';
 import 'package:shopping_app/route/route_constants.dart';
-import 'package:shopping_app/widget/appbar.dart';
-import 'package:shopping_app/feature/discover/bloc/discover_bloc.dart';
 import 'package:shopping_app/feature/discover/model/product.dart';
 
 class Wishlist extends StatefulWidget {
@@ -22,7 +20,7 @@ class Wishlist extends StatefulWidget {
   _WishlistState createState() => _WishlistState();
 }
 
-class _WishlistState extends State<Wishlist> {
+class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<Wishlist>{
   double width;
   double height;
   final formatCurrency = NumberFormat.currency(symbol: '', decimalDigits: 3);
@@ -54,7 +52,7 @@ class _WishlistState extends State<Wishlist> {
                 height: 50.0,
                 onSearch: (value) {
                   context
-                      .bloc<DiscoverBloc>()
+                      .bloc<WishlistBloc>()
                       .add(LoadingWishlistEvent(query: value));
                 },
                 backgroundColor: Colors.black12,
@@ -81,8 +79,10 @@ class _WishlistState extends State<Wishlist> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 6,),
-          Expanded(child: BlocBuilder<DiscoverBloc, DiscoverState>(
+          SizedBox(
+            height: 6,
+          ),
+          Expanded(child: BlocBuilder<WishlistBloc, WishlistState>(
             builder: (context, state) {
               if (state is WishlistLoadFinished) {
                 var listProduct = state.products;
@@ -109,53 +109,79 @@ class _WishlistState extends State<Wishlist> {
     return InkWell(
       onTap: () => Navigator.pushNamed(
           context, RouteConstant.productDetailsRoute,
-          arguments: ScreenArguments(
-            product: product,
-            home: widget.home
-          )),
+          arguments: ScreenArguments(product: product, home: widget.home)),
       child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        color: Colors.white,
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Transform(
-                      alignment: Alignment.center,
-                      transform: Matrix4.rotationY(pi),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 4),
-                        child: Image.network(
-                          product.images[0].originalSource,
-                        ),
-                      )),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                child: Text(
-                  product.title,
-                  maxLines: 2,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, bottom: 12),
-                child: Text(
-                  "${formatCurrency.format(double.parse(product.price))} JD",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
           ),
-        ),
-      ),
+          color: Colors.white,
+          child: Stack(
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.rotationY(pi),
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 4),
+                              child: Image.network(
+                                product.images[0].originalSource,
+                              ),
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      child: Text(
+                        product.title,
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, bottom: 12),
+                      child: Text(
+                        "${formatCurrency.format(double.parse(product.price))} JD",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              !product.outOfStock
+                  ? Align(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return Container(
+                            width: constraints.maxWidth * 0.6,
+                            height: constraints.maxHeight * 0.15,
+                            color: AppColors.indianRed,
+                            child: Center(
+                              child: RotatedBox(
+                                quarterTurns: 0,
+                                child: Text(
+                                  'إنتهى من المخزن',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                      alignment: Alignment.topLeft,
+                    )
+                  : Container(),
+            ],
+          )),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
