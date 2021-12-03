@@ -7,7 +7,6 @@ import 'package:shopping_app/feature/discover/ui/discover_screen.dart';
 import 'package:shopping_app/feature/profile/profile_screen.dart';
 import 'package:shopping_app/feature/wishlist/ui/wishlist_screen.dart';
 
-
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
 
@@ -29,7 +28,6 @@ class HomeScreenState extends State<HomeScreen> {
     _discoverScreen = DiscoverScreen(this);
     _cartScreen = CartScreen();
     _wishlist = Wishlist(this);
-
   }
 
   @override
@@ -64,8 +62,8 @@ class HomeScreenState extends State<HomeScreen> {
               BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
             ]),
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 22.0, right: 22, bottom: 16.0, top: 8),
+              padding: const EdgeInsets.only(
+                  left: 22.0, right: 22, bottom: 16.0, top: 8),
               child: GNav(
                 gap: 8,
                 activeColor: Colors.white,

@@ -65,7 +65,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
     context.bloc<DiscoverBloc>().add(LoadingDiscoverEvent(
         category: categories[_currentIndexCategory],
         productType: ProductType.values()[_currentIndexProductType]));
-    print('init');
     context.bloc<PrizeBloc>().add(LoadingPrizeEvent());
   }
 
@@ -109,7 +108,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                           },
                           child: Image.asset(
                             R.icon.instagram,
-                            height: 60,
+                            height: 55,
                           )),
                     ),
                     Flexible(
@@ -358,10 +357,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
           }
           prizeProduct = state.prize;
           AppData.cartId ??= state.cartId;
-
-          if (_controller.hasClients) {
-            _controller.jumpTo(_controller.position.minScrollExtent);
-          }
         } else if (state is StartDiscoverLoad) {
           FocusScope.of(context).unfocus();
 
