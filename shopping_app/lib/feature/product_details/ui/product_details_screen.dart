@@ -158,18 +158,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: product == null
-          ? AppBar(
-              backgroundColor: Colors.white38,
-            )
-          : _toolbar(),
-      body: product == null
-          ? LoaderPage()
-          : Stack(
-              children: [_contentBody(), _buttonAddToBag()],
-            ),
-    );
+    return WillPopScope(
+        onWillPop: () async => !Navigator.of(context).userGestureInProgress,
+        child: Scaffold(
+          appBar: product == null
+              ? AppBar(
+                  backgroundColor: Colors.white38,
+                )
+              : _toolbar(),
+          body: product == null
+              ? LoaderPage()
+              : Stack(
+                  children: [_contentBody(), _buttonAddToBag()],
+                ),
+        ));
   }
 
   Widget _contentBody() {
