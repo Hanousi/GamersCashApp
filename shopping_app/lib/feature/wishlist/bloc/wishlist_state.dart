@@ -9,6 +9,8 @@ abstract class WishlistState extends Equatable {
 
 class WishlistLoading extends WishlistState {}
 
+class WishlistStart extends WishlistState {}
+
 class WishlistLoadFinished extends WishlistState {
   final bool isSuccess;
   final List<Product> products;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fsearch/fsearch.dart';
 import 'package:intl/intl.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shopping_app/feature/discover/ui/discover_screen.dart';
 import 'package:shopping_app/feature/home/home.dart';
 import 'package:shopping_app/feature/wishlist/bloc/wishlist_bloc.dart';
@@ -94,6 +95,13 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
                     var product = listProduct[index];
                     return _buildCardProduct(product);
                   },
+                );
+              } else if (state is WishlistLoading) {
+                return Padding(
+                  padding: EdgeInsets.all(150),
+                  child: HeartbeatProgressIndicator(
+                    child: Icon(Icons.search),
+                  ),
                 );
               }
 

@@ -13,7 +13,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   StreamSubscription _streamSubscription;
 
   WishlistBloc()
-      : _discoverRepository = FirebaseDiscoverRepository(), super(WishlistLoading());
+      : _discoverRepository = FirebaseDiscoverRepository(), super(WishlistStart());
 
   @override
   Stream<WishlistState> mapEventToState(
@@ -34,6 +34,8 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
   Stream<WishlistState> _mapLoadWishlistEvent(
       LoadingWishlistEvent event) async* {
+    yield WishlistLoading();
+
     List<Product> productList =
     await _discoverRepository.getSearchProduct(event.query);
 

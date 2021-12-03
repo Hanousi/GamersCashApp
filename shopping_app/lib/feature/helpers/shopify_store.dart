@@ -109,7 +109,6 @@ class ShopifyStore with ShopifyError {
     checkForError(result);
 
     var jsonCartItems = (result?.data ?? const {})['cart']['lines']['edges'];
-    print(jsonCartItems.length);
 
     cartItems = List.generate(jsonCartItems.length, (index) {
       final data = jsonCartItems[index];
@@ -125,7 +124,6 @@ class ShopifyStore with ShopifyError {
   }
 
   Future<int> addToCart(String merchandiseId) async {
-    print(AppData.cartId);
     final MutationOptions _options =
         MutationOptions(document: gql(addToCartMutation), variables: {
       'lines': [
