@@ -28,8 +28,8 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
-
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   if(Platform.isIOS) {
     await Firebase.initializeApp();
     FirebaseMessaging.instance.requestPermission();

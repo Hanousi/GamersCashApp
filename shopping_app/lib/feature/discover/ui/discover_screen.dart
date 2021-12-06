@@ -358,8 +358,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
           prizeProduct = state.prize;
           AppData.cartId ??= state.cartId;
         } else if (state is StartDiscoverLoad) {
-          FocusScope.of(context).unfocus();
-
           return Padding(
             padding: EdgeInsets.all(150),
             child: HeartbeatProgressIndicator(

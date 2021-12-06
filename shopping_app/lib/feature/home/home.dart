@@ -49,6 +49,11 @@ class HomeScreenState extends State<HomeScreen> {
             controller: _pageController,
             onPageChanged: (index) {
               setState(() => _currentIndex = index);
+              if(index != 1) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  FocusScope.of(context).unfocus();
+                });
+              }
             },
             children: <Widget>[
               _discoverScreen,
@@ -89,6 +94,11 @@ class HomeScreenState extends State<HomeScreen> {
                 onTabChange: (index) {
                   setState(() => _currentIndex = index);
                   _pageController.jumpToPage(index);
+                  if(index != 1) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      FocusScope.of(context).unfocus();
+                    });
+                  }
                 },
               ),
             )));
