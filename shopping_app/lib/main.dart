@@ -18,8 +18,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 
-
-
 void main() async {
   ShopifyConfig.setConfig(
     "fdfda880b301a54016ee2a5bc24af039",
@@ -28,12 +26,12 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   if(Platform.isIOS) {
     await Firebase.initializeApp();
     FirebaseMessaging.instance.requestPermission();
   }
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   Bloc.observer = SimpleBlocObserver();
 
