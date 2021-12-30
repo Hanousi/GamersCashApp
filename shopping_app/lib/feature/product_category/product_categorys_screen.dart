@@ -89,16 +89,16 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 4),
+                              horizontal: 0, vertical: 0),
                           child: Text(
                             product.title,
                             textAlign: TextAlign.center,
                             maxLines: 1,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold, height: 1.5),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 0, bottom: 12),
+                          padding: const EdgeInsets.only(left: 0, bottom: 4),
                           child: Text(
                             "${formatCurrency.format(double.parse(product.price))} JD",
                             textAlign: TextAlign.center,

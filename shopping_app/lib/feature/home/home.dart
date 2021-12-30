@@ -53,6 +53,10 @@ class HomeScreenState extends State<HomeScreen> {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   FocusScope.of(context).unfocus();
                 });
+              } else {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  FocusScope.of(context).requestFocus();
+                });
               }
             },
             children: <Widget>[
@@ -79,7 +83,7 @@ class HomeScreenState extends State<HomeScreen> {
                 tabs: [
                   GButton(
                     icon: Ionicons.ios_home,
-                    text: 'Home',
+                    text: 'رئيسية',
                   ),
                   GButton(
                     icon: Ionicons.ios_search,
@@ -97,6 +101,10 @@ class HomeScreenState extends State<HomeScreen> {
                   if(index != 1) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       FocusScope.of(context).unfocus();
+                    });
+                  } else {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      FocusScope.of(context).requestFocus();
                     });
                   }
                 },

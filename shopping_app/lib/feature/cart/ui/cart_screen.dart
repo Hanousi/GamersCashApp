@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
                                   'السلة',
                                   style: headingText,
                                 ),
-                                Text('Total ${cart.listCartItem.length} items')
+                                Text(' مجموع ${cart.listCartItem.length} أغراض ')
                               ],
                             )),
                         Padding(

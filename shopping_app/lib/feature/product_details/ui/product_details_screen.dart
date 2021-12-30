@@ -183,10 +183,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           children: [
             Container(
                 decoration: BoxDecoration(
-                    color: _getColor(product.productType),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                            MediaQuery.of(context).size.width / 2))),
+                    color: _getColor(product.productType)),
                 child: Center(
                     child: Container(
                   child: Image.network(
@@ -302,8 +299,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     );
                   },
                   child: Text(
-                    'MORE DETAILS',
+                    'المزيد من التفاصيل',
                     style: TextStyle(
+                        fontSize: 18,
                         color: Colors.black,
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold),
@@ -421,8 +419,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           : widget.isFromPrize
                               ? 'اضغط هنا للاشتراك'
                               : _isAddedToBag
-                                  ? 'GO TO BAG'
-                                  : 'ADD TO BAG',
+                                  ? 'اذهب إلى السلة'
+                                  : 'أضف إلى السلة',
                       style: whiteText,
                     ))
                 : Container(),
