@@ -285,29 +285,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           SizedBox(
             height: 20,
           ),
-          InkWell(
-            onTap: () async {
-              await showModalBottomSheet(
-                context: context,
-                elevation: 30,
-                backgroundColor: Colors.transparent,
-                builder: (context) => Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: BottomDialog(
-                    title: product.title,
-                    child: Text('${product.description}'),
+          product.description != ''
+              ? InkWell(
+                  onTap: () async {
+                    await showModalBottomSheet(
+                      context: context,
+                      elevation: 30,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: BottomDialog(
+                          title: product.title,
+                          child: Text('${product.description}'),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'MORE DETAILS',
+                    style: TextStyle(
+                        color: Colors.black,
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-              );
-            },
-            child: Text(
-              'MORE DETAILS',
-              style: TextStyle(
-                  color: Colors.black,
-                  decoration: TextDecoration.underline,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
+                )
+              : Container(),
           SizedBox(
             height: 100,
           ),
