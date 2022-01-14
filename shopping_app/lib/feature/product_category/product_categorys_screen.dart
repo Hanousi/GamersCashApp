@@ -63,74 +63,78 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
 
   Widget _buildCardProduct(Product product) {
     return InkWell(
-        onTap: () => Navigator.pushNamed(
-            context, RouteConstant.productDetailsRoute,
-            arguments: ScreenArguments(
-                product: product, home: widget.home, isFromSale: true)),
-        child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            color: Colors.white,
-            child: Stack(
-              children: [
-                Container(
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Align(
+      onTap: () => Navigator.pushNamed(
+          context, RouteConstant.productDetailsRoute,
+          arguments: ScreenArguments(product: product, home: widget.home)),
+      child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          color: Colors.white,
+          child: Stack(
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Transform(
                             alignment: Alignment.center,
-                            child: Image.network(
-                              product.images[0].originalSource,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0, vertical: 0),
-                          child: Text(
-                            product.title,
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
-                            style: TextStyle(fontWeight: FontWeight.bold, height: 1.5),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 0, bottom: 4),
-                          child: Text(
-                            "${formatCurrency.format(double.parse(product.price))} JD",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
+                            transform: Matrix4.rotationY(pi),
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 4),
+                              child: Image.network(
+                                product.images[0].originalSource,
+                              ),
+                            )),
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      child: Text(
+                        product.title,
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, bottom: 12),
+                      child: Text(
+                        "${formatCurrency.format(double.parse(product.price))} JD",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
-                !product.outOfStock ? Align(
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      return Container(
-                        width: constraints.maxWidth * 0.6,
-                        height: constraints.maxHeight * 0.15,
-                        color: AppColors.indianRed,
-                        child: Center(
-                          child: RotatedBox(
-                            quarterTurns: 0,
-                            child: Text(
-                              'إنتهى من المخزن',
-                              style: TextStyle(color: Colors.white),
+              ),
+              !product.outOfStock
+                  ? Align(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return Container(
+                            width: constraints.maxWidth * 0.6,
+                            height: constraints.maxHeight * 0.15,
+                            color: AppColors.indianRed,
+                            child: Center(
+                              child: RotatedBox(
+                                quarterTurns: 0,
+                                child: Text(
+                                  'إنتهى من المخزن',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  alignment: Alignment.topLeft,
-                ) : Container(),
-              ],
-            )));
+                          );
+                        },
+                      ),
+                      alignment: Alignment.topLeft,
+                    )
+                  : Container(),
+            ],
+          )),
+    );
   }
 }

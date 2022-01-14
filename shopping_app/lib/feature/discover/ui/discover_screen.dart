@@ -314,7 +314,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '${product.compareAtPrice} JD',
+                                    product.compareAtPrice != null ? '${product.compareAtPrice} JD' : '',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         decoration: TextDecoration.lineThrough),
