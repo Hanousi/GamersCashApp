@@ -21,6 +21,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final formatCurrency = NumberFormat.currency(symbol: '', decimalDigits: 3);
 
+  double width;
+
   Cart thisCart;
 
   @override
@@ -34,6 +36,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
+
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -243,7 +247,8 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12.0),
-                    child: cartItem.cartQuantity,
+                    child: Container(
+                        width: width * 0.025, child: cartItem.cartQuantity),
                   ),
                   SizedBox(
                     width: 40,
