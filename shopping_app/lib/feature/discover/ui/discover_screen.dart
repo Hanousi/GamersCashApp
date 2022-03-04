@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,7 +39,8 @@ class DiscoverScreen extends StatefulWidget {
   _DiscoverScreenState createState() => _DiscoverScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAliveClientMixin<DiscoverScreen> {
+class _DiscoverScreenState extends State<DiscoverScreen>
+    with AutomaticKeepAliveClientMixin<DiscoverScreen> {
   var _isSelectedCategory = false;
   var _currentIndexCategory = 0;
 
@@ -70,6 +72,18 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
 
   @override
   Widget build(BuildContext context) {
+    const colorizeColors = [
+      Colors.red,
+      Colors.blue,
+      Colors.yellow,
+      Colors.red,
+    ];
+
+    const colorizeTextStyle = TextStyle(
+      fontSize: 24.0,
+      fontFamily: 'Horizon',
+    );
+
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
@@ -79,7 +93,75 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
           scrollDirection: Axis.vertical,
           children: [
             _buildCompetition(),
-            Container(height: 70, child: _buildListCategory()),
+            Container(
+              height: 90,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildCategoryCard(
+                      'PlayStation',
+                      Colors.blue,
+                      Image.asset(
+                        R.icon.playstation,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'XBOX',
+                      Colors.green,
+                      Image.asset(
+                        R.icon.xbox,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'Nintendo',
+                      Colors.red,
+                      Image.asset(
+                        R.icon.nintendo,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'PC',
+                      Colors.blueGrey,
+                      Image.asset(
+                        R.icon.computer,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'سماعات',
+                      Colors.green,
+                      Image.asset(
+                        R.icon.headphone,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'كيبوردات',
+                      Colors.deepPurple,
+                      Image.asset(
+                        R.icon.keyboard,
+                        height: 35,
+                      )),
+                  _buildCategoryCard(
+                      'ماوسات',
+                      Colors.deepOrange,
+                      Image.asset(
+                        R.icon.mouse,
+                        height: 35,
+                      )),
+                  Padding(
+                      padding: EdgeInsets.only(right: 15),
+                      child: _buildCategoryCard(
+                          'بطاقات',
+                          Colors.teal,
+                          Image.asset(
+                            R.icon.cards,
+                            height: 35,
+                          ))),
+                ],
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 12.0),
+                child: Container(height: 40, child: _buildListCategory())),
             Row(
               children: [
                 Container(
@@ -159,11 +241,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                 children: [
                   Text(
                     'عروض أسبوعية',
-                    style: headingText,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
                   IconButton(
                       icon: Image.asset(
                         R.icon.rightArrow,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                       onPressed: () {
                         Navigator.pushNamed(
@@ -179,17 +262,52 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: _buildSaleList()),
-            const Center(
+            Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   'اذا كان هناك خطأ في التطبيق او عدم معرفة طريقة الطلب يمكنك الاتصال بنا | 0791433878',
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface
+                  ),
                 ),
               ),
             )
           ],
         ));
+  }
+
+  Widget _buildCategoryCard(String text, Color color, Image image) {
+    return GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, RouteConstant.productCategory,
+              arguments: {
+                "listProduct": <Product>[],
+                "categoryName": text,
+                "home": widget.home
+              });
+        },
+        child: Padding(
+            padding: EdgeInsets.only(left: 15),
+            child: Container(
+              height: 90,
+              width: 100,
+              decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Column(
+                children: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: image),
+                  Text(
+                    text,
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              ),
+            )));
   }
 
   Widget _buildSaleList() {
@@ -259,7 +377,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
               arguments: ScreenArguments(product: product, home: widget.home));
         },
         child: Card(
-          color: Colors.white,
           child: Container(
             width: width * 0.5,
             height: width * 0.4,
@@ -308,21 +425,24 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                                 product.title,
                                 textAlign: TextAlign.center,
                                 maxLines: 1,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    product.compareAtPrice != null ? '${product.compareAtPrice} JD' : '',
+                                    product.compareAtPrice != null
+                                        ? '${product.compareAtPrice} JD'
+                                        : '',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).colorScheme.onSurface,
                                         decoration: TextDecoration.lineThrough),
                                   ),
                                   Text(
                                     ' ${product.price} JD',
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                                   ),
                                 ],
                               )
@@ -387,6 +507,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                     child: Image.asset(
                       R.icon.more,
                       width: 100,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                 );
@@ -424,7 +545,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: _isSelectedProductType
-                            ? Colors.black
+                            ? Theme.of(context).colorScheme.onSurface
                             : Colors.grey),
                   )),
             ),
@@ -433,25 +554,30 @@ class _DiscoverScreenState extends State<DiscoverScreen> with AutomaticKeepAlive
   }
 
   Widget _buildListCategory() {
-    return ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          var category = categories[index];
-          _isSelectedCategory = _currentIndexCategory == index;
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: FlatButton(
-                onPressed: () => _onClickFilterCategory(index, category),
-                child: Text(
-                  category,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: _isSelectedCategory ? Colors.black : Colors.grey),
-                )),
-          );
-        });
+    final controller = new ScrollController();
+    return Scrollbar(
+        isAlwaysShown: true,
+        controller: controller,
+        child: ListView.builder(
+            shrinkWrap: true,
+            controller: controller,
+            scrollDirection: Axis.horizontal,
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              var category = categories[index];
+              _isSelectedCategory = _currentIndexCategory == index;
+              return FlatButton(
+                  height: 1,
+                  onPressed: () => _onClickFilterCategory(index, category),
+                  child: Text(
+                    category,
+                    style: TextStyle(
+                        height: 0.5,
+                        fontWeight: FontWeight.bold,
+                        color:
+                            _isSelectedCategory ? Theme.of(context).colorScheme.onSurface : Colors.grey),
+                  ));
+            }));
   }
 
   _onClickFilterProductType(int index, String type) {

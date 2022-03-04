@@ -31,6 +31,45 @@ const minorTextWhite = TextStyle(
   fontWeight: FontWeight.normal,
 );
 
+ThemeData buildDarkTheme() {
+  final ThemeData base = ThemeData.dark();
+  return base.copyWith(
+    textTheme: const TextTheme(
+      headline1: TextStyle(
+        color: AppColors.white,
+        fontSize: 24,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.bold,
+      ),
+      headline2: TextStyle(
+        color: AppColors.white,
+        fontSize: 26,
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.bold,
+      )
+    )
+  );
+}
+
+ThemeData buildLightTheme() {
+  final ThemeData base = ThemeData.light();
+  return base.copyWith(
+      textTheme: const TextTheme(
+          headline1: TextStyle(
+            color: AppColors.black,
+            fontSize: 24,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+          ),
+        headline2: TextStyle(
+          color: AppColors.black,
+          fontSize: 26,
+          fontStyle: FontStyle.normal,
+          fontWeight: FontWeight.bold,
+        )
+      )
+  );
+}
 
 const headingText = TextStyle(
   color: AppColors.black,

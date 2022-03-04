@@ -40,7 +40,6 @@ class _CartScreenState extends State<CartScreen> {
 
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.white,
           body: BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               Cart cart;
@@ -62,7 +61,7 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 Text(
                                   'السلة',
-                                  style: headingText,
+                                  style: Theme.of(context).textTheme.headline1,
                                 ),
                                 Text(
                                     ' مجموع ${cart.listCartItem.length} أغراض ')
@@ -81,8 +80,6 @@ class _CartScreenState extends State<CartScreen> {
                             shrinkWrap: true,
                             itemCount: cart.listCartItem.length,
                             itemBuilder: (context, index) {
-                              print(cart.listCartItem.isEmpty);
-
                               if (cart.listCartItem.isEmpty) {
                                 return Container(
                                   child: Padding(
@@ -90,6 +87,7 @@ class _CartScreenState extends State<CartScreen> {
                                     child: Text(
                                       'Cart is Empty',
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(color: Theme.of(context).colorScheme.onSurface)
                                     ),
                                   ),
                                 );
@@ -108,7 +106,6 @@ class _CartScreenState extends State<CartScreen> {
                     Positioned(
                         bottom: 0,
                         child: Container(
-                            color: Colors.white,
                             width: MediaQuery.of(context).size.width,
                             height: 120,
                             child: _resultCart(cart.getTotalPrice(), cart))),
@@ -215,8 +212,9 @@ class _CartScreenState extends State<CartScreen> {
                 child: Text(
                   cartItem.product.title,
                   maxLines: 2,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface
                   ),
                 ),
               ),
@@ -226,7 +224,7 @@ class _CartScreenState extends State<CartScreen> {
               Text(
                 '${formatCurrency.format(double.parse(cartItem.product.price))} JD',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Theme.of(context).colorScheme.onSurface),
               ),
               const SizedBox(
                 height: 10,

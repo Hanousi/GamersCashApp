@@ -635,6 +635,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.2"
+  thememode_selector:
+    dependency: "direct main"
+    description:
+      name: thememode_selector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   typed_data:
     dependency: transitive
     description:

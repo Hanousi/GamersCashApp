@@ -242,6 +242,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    color: Theme.of(context).colorScheme.onSurface
                   ),
                 ),
               ),
@@ -256,6 +257,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               decoration: TextDecoration.lineThrough,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
+                                color: Theme.of(context).colorScheme.onSurface
                             ),
                           )
                         : Container(),
@@ -264,6 +266,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
+                          color: Theme.of(context).colorScheme.onSurface
                       ),
                     )
                   ],
@@ -276,7 +279,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           Text(
             product.description,
-            style: TextStyle(color: Colors.black54),
+            style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
             maxLines: 5,
           ),
           SizedBox(
@@ -293,7 +296,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         padding: const EdgeInsets.all(20),
                         child: BottomDialog(
                           title: product.title,
-                          child: Text('${product.description}'),
+                          child: Text('${product.description}', style: TextStyle(color: Colors.black),),
                         ),
                       ),
                     );
@@ -302,7 +305,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     'المزيد من التفاصيل',
                     style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.onSurface,
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold),
                   ),

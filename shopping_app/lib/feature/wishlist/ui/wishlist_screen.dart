@@ -43,7 +43,7 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.grey[100],
+          backgroundColor: Theme.of(context).canvasColor,
           titleSpacing: 0.0,
           title: Padding(
             padding: EdgeInsets.only(top: 20.00),
@@ -56,9 +56,9 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
                       .bloc<WishlistBloc>()
                       .add(LoadingWishlistEvent(query: value));
                 },
-                backgroundColor: Colors.black12,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 style: TextStyle(
-                    fontSize: 24.0, height: 1.0, color: Colors.black45),
+                    fontSize: 24.0, height: 1.0, color: Theme.of(context).colorScheme.onSurface),
                 margin: EdgeInsets.only(left: 12.0, right: 12.0, top: 9.0),
                 padding: EdgeInsets.only(
                     left: 6.0, right: 6.0, top: 3.0, bottom: 10.0),
@@ -69,7 +69,7 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
                     child: Icon(
                       Icons.search,
                       size: 32,
-                      color: Colors.black,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   const SizedBox(width: 3.0)
@@ -122,7 +122,7 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           child: Stack(
             children: [
               Container(
@@ -149,14 +149,14 @@ class _WishlistState extends State<Wishlist> with AutomaticKeepAliveClientMixin<
                       child: Text(
                         product.title,
                         maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16, bottom: 12),
                       child: Text(
                         "${formatCurrency.format(double.parse(product.price))} JD",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
                   ],

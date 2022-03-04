@@ -49,7 +49,7 @@ class HomeScreenState extends State<HomeScreen> {
             controller: _pageController,
             onPageChanged: (index) {
               setState(() => _currentIndex = index);
-              if(index != 1) {
+              if (index != 1) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   FocusScope.of(context).unfocus();
                 });
@@ -67,7 +67,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
         ),
         bottomNavigationBar: Container(
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSecondary, boxShadow: [
               BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
             ]),
             child: Padding(
@@ -75,6 +75,7 @@ class HomeScreenState extends State<HomeScreen> {
                   left: 22.0, right: 22, bottom: 16.0, top: 8),
               child: GNav(
                 gap: 8,
+                backgroundColor: Theme.of(context).colorScheme.onSecondary,
                 activeColor: Colors.white,
                 iconSize: 24,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -98,7 +99,7 @@ class HomeScreenState extends State<HomeScreen> {
                 onTabChange: (index) {
                   setState(() => _currentIndex = index);
                   _pageController.jumpToPage(index);
-                  if(index != 1) {
+                  if (index != 1) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       FocusScope.of(context).unfocus();
                     });

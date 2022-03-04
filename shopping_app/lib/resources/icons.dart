@@ -5,6 +5,14 @@ class Icon {
   String ex01 = 'assets/icon/ex01.png';
   String ex03 = 'assets/icon/ex03.png';
   String ex02 = 'assets/icon/ex02.png';
+  String computer = 'assets/icon/desktop.png';
+  String xbox = 'assets/icon/xbox-logo.png';
+  String playstation = 'assets/icon/playstation-logotype.png';
+  String nintendo = 'assets/icon/nintendo-switch.png';
+  String mouse = 'assets/icon/mouse.png';
+  String keyboard = 'assets/icon/keyboard.png';
+  String headphone = 'assets/icon/headphone.png';
+  String cards = 'assets/icon/cards.png';
 
   String masterCard = 'assets/images/mastercard.png';
   String amexCard = 'assets/images/amex.png';

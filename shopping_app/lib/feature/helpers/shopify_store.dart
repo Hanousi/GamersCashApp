@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:shopping_app/feature/cart/models/cart.dart';
 import 'package:shopping_app/feature/cart/models/cart_item.dart';
@@ -116,7 +117,7 @@ class ShopifyStore with ShopifyError {
       return CartItem(
           id: data['node']['id'],
           quantity: data['node']['quantity'],
-          cartQuantity: Text("${data['node']['quantity']}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
+          cartQuantity: Text("${data['node']['quantity']}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.grey),),
           product: Product.fromCartJson(data['node']['merchandise']['product']));
     });
 

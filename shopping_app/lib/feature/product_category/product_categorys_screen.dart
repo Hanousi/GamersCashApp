@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/src/bloc_provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:shopping_app/feature/discover/ui/discover_screen.dart';
 import 'package:shopping_app/feature/home/home.dart';
 import 'package:shopping_app/resources/R.dart';
@@ -9,6 +12,8 @@ import 'package:shopping_app/resources/resources.dart';
 import 'package:shopping_app/route/route_constants.dart';
 import '../discover/model/product.dart';
 import 'package:intl/intl.dart';
+
+import 'bloc/collection_bloc.dart';
 
 class ProductCategoryScreen extends StatefulWidget {
   final List<Product> listProduct;
@@ -24,6 +29,55 @@ class ProductCategoryScreen extends StatefulWidget {
 
 class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
   final formatCurrency = NumberFormat.currency(symbol: '', decimalDigits: 3);
+
+  Widget _buildList() {
+    if (widget.listProduct.isNotEmpty) {
+      return GridView.builder(
+        itemCount: widget.listProduct.length ?? 0,
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) {
+          var product = widget.listProduct[index];
+          return _buildCardProduct(product);
+        },
+      );
+    } else {
+      context
+          .bloc<CollectionBloc>()
+          .add(LoadingCollectionEvent(collection: widget.categoryName));
+
+      return BlocBuilder<CollectionBloc, CollectionState>(
+        builder: (context, state) {
+          List<Product> products = [];
+
+          if (state is CollectionFinished) {
+            products = state.products;
+
+            return GridView.builder(
+              itemCount: products.length ?? 0,
+              gridDelegate:
+              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemBuilder: (context, index) {
+                var product = products[index];
+                return _buildCardProduct(product);
+              },
+            );
+          } else if (state is StartCollectionLoad) {
+            return Padding(
+              padding: EdgeInsets.all(150),
+              child: HeartbeatProgressIndicator(
+                child: Icon(Icons.search),
+              ),
+            );
+          }
+
+          return Row(
+            children: [],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +97,10 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                   top: 16, left: 28, right: 28, bottom: 16),
               child: Text(
                 '${widget.categoryName}',
-                style: headingText1,
+                style: Theme.of(context).textTheme.headline2,
               )),
           Expanded(
-            child: GridView.builder(
-              itemCount: widget.listProduct.length ?? 0,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemBuilder: (context, index) {
-                var product = widget.listProduct[index];
-                return _buildCardProduct(product);
-              },
-            ),
+            child: _buildList(),
           )
         ],
       ),
@@ -70,7 +116,6 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
           ),
-          color: Colors.white,
           child: Stack(
             children: [
               Container(
@@ -97,14 +142,14 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                       child: Text(
                         product.title,
                         maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16, bottom: 12),
                       child: Text(
                         "${formatCurrency.format(double.parse(product.price))} JD",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
                   ],

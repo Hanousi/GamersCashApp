@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shopping_app/feature/auth/login/bloc/login_bloc.dart';
 import 'package:shopping_app/feature/discover/bloc/prize_bloc.dart';
+import 'package:shopping_app/feature/product_category/bloc/collection_bloc.dart';
 import 'package:shopping_app/feature/wishlist/bloc/wishlist_bloc.dart';
 import 'package:shopping_app/localization/app_localization.dart';
+import 'package:shopping_app/resources/app_theme.dart';
 import 'package:shopping_app/route/router.dart';
 
 import 'feature/cart/bloc/cart_bloc.dart';
@@ -20,10 +22,14 @@ class MyApp extends StatefulWidget {
 
   @override
   _MyAppState createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
   final discoverBloc = DiscoverBloc();
+  final collectionBloc = CollectionBloc();
   final cartBloc = CartBloc();
   final productDetailsBloc = ProductDetailsBloc();
   final profileBloc = ProfileBloc();
@@ -36,6 +42,8 @@ class _MyAppState extends State<MyApp> {
     super.didChangeDependencies();
   }
 
+  ThemeData _themeData = buildLightTheme();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -43,6 +51,11 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(
             create: (context) {
               return discoverBloc;
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              return collectionBloc;
             },
           ),
           BlocProvider(
@@ -77,6 +90,7 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
+            darkTheme: ThemeData.dark(),
             initialRoute: widget.initialRoute,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRouter.generateRoute,
@@ -100,16 +114,20 @@ class _MyAppState extends State<MyApp> {
               }
               return supportedLocales.first;
             },
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
+            theme: _themeData,
             home: HomeScreen()));
+  }
+
+  void changeTheme(ThemeData themeData) {
+    setState(() {
+      _themeData = themeData;
+    });
   }
 
   @override
   void dispose() {
     discoverBloc.close();
+    collectionBloc.close();
     cartBloc.close();
     productDetailsBloc.close();
     profileBloc.close();
