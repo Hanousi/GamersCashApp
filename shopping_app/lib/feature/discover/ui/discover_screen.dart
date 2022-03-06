@@ -99,9 +99,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               child: Container(
                 height: 200,
                 child: GridView(
+                  padding: EdgeInsets.only(right: 10),
                   scrollDirection: Axis.horizontal,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: (90 / 100),
+                    childAspectRatio: (85 / 100),
                       crossAxisCount: 2),
                   children: [
                     _buildCategoryCard(
