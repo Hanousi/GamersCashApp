@@ -64,7 +64,7 @@ class _CartScreenState extends State<CartScreen> {
                                   style: Theme.of(context).textTheme.headline1,
                                 ),
                                 Text(
-                                    ' مجموع ${cart.listCartItem.length} أغراض ')
+                                    ' مجموع ${cart.listCartItem.length} أغراض ', style: TextStyle(color: Theme.of(context).colorScheme.onSurface),)
                               ],
                             )),
                         Padding(
@@ -135,11 +135,11 @@ class _CartScreenState extends State<CartScreen> {
             children: [
               Text(
                 'المجموع',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
               ),
               Text(
                 "${formatCurrency.format(totalPrice)} JD",
-                style: boldTextMedium,
+                style: Theme.of(context).textTheme.subtitle1,
               )
             ],
           ),

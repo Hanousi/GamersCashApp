@@ -46,7 +46,12 @@ ThemeData buildDarkTheme() {
         fontSize: 26,
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.bold,
-      )
+      ),
+      subtitle1: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        fontSize: 20,
+      ),
     )
   );
 }
@@ -66,7 +71,12 @@ ThemeData buildLightTheme() {
           fontSize: 26,
           fontStyle: FontStyle.normal,
           fontWeight: FontWeight.bold,
-        )
+        ),
+        subtitle1: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontSize: 20,
+        ),
       )
   );
 }
