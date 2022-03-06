@@ -271,7 +271,7 @@ class _CartScreenState extends State<CartScreen> {
 
   increaseQuantity(Product product, CartItem cartItem) {
     setState(() {
-      cartItem.cartQuantity = JumpingDotsProgressIndicator(fontSize: 8);
+      cartItem.cartQuantity = JumpingDotsProgressIndicator(fontSize: 8, color: Colors.grey,);
     });
 
     BlocProvider.of<CartBloc>(context).add(IncreaseQuantityCartItem(product));
@@ -288,7 +288,7 @@ class _CartScreenState extends State<CartScreen> {
               BlocProvider.of<CartBloc>(context).add(RemoveCartItem(cartItem)));
     } else {
       setState(() {
-        cartItem.cartQuantity = JumpingDotsProgressIndicator(fontSize: 11.3);
+        cartItem.cartQuantity = JumpingDotsProgressIndicator(fontSize: 8, color: Colors.grey,);
       });
 
       BlocProvider.of<CartBloc>(context)
