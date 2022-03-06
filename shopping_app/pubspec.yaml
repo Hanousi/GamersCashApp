@@ -46,6 +46,7 @@ dependencies:
   animated_text_kit: ^4.2.1
   firebase_messaging: ^11.1.0
   thememode_selector: ^0.1.0
+  slide_countdown: ^0.1.2
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.2"

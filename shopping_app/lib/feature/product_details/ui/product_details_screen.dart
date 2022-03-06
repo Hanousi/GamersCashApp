@@ -51,7 +51,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         context: context,
         builder: (BuildContext context) {
           return SimpleDialog(
-            title: Text('ادخل المعلومات للاشتراك في المسابقة'),
+            title: Text(
+              'ادخل المعلومات للاشتراك في المسابقة',
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+            ),
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +69,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 250,
                         child: TextField(
                           controller: _nameController,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           decoration: const InputDecoration(
                             labelText: 'الاسم',
                           ),
@@ -75,6 +80,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 250,
                         child: TextField(
                           controller: _emailController,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           decoration: InputDecoration(
                             labelText: 'البريد الاكتروني',
                           ),
@@ -84,6 +91,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 250,
                         child: TextField(
                           controller: _numberController,
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           decoration: InputDecoration(
                             labelText: 'رقم الهاتف',
                           ),
@@ -182,8 +191,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         Stack(
           children: [
             Container(
-                decoration: BoxDecoration(
-                    color: _getColor(product.productType)),
+                decoration:
+                    BoxDecoration(color: _getColor(product.productType)),
                 child: Center(
                     child: Container(
                   child: Image.network(
@@ -240,10 +249,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: Text(
                   product.title,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Theme.of(context).colorScheme.onSurface
-                  ),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
               Expanded(
@@ -254,20 +262,18 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ? Text(
                             '${formatCurrency.format(double.parse(product.compareAtPrice)) + ' JD'}',
                             style: TextStyle(
-                              decoration: TextDecoration.lineThrough,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                                color: Theme.of(context).colorScheme.onSurface
-                            ),
+                                decoration: TextDecoration.lineThrough,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Theme.of(context).colorScheme.onSurface),
                           )
                         : Container(),
                     Text(
                       '${formatCurrency.format(double.parse(product.price))} JD',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                          color: Theme.of(context).colorScheme.onSurface
-                      ),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.onSurface),
                     )
                   ],
                 ),
@@ -296,7 +302,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         padding: const EdgeInsets.all(20),
                         child: BottomDialog(
                           title: product.title,
-                          child: Text('${product.description}', style: TextStyle(color: Colors.black),),
+                          child: Text(
+                            '${product.description}',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     );

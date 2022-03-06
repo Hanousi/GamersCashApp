@@ -13,6 +13,9 @@ class Icon {
   String keyboard = 'assets/icon/keyboard.png';
   String headphone = 'assets/icon/headphone.png';
   String cards = 'assets/icon/cards.png';
+  String chair = 'assets/icon/chair.png';
+  String rec = 'assets/icon/rec.png';
+  String sale = 'assets/icon/sale.png';
 
   String masterCard = 'assets/images/mastercard.png';
   String amexCard = 'assets/images/amex.png';

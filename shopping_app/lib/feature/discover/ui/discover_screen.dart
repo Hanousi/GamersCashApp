@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/gestures.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:progress_indicators/progress_indicators.dart';
@@ -93,70 +94,95 @@ class _DiscoverScreenState extends State<DiscoverScreen>
           scrollDirection: Axis.vertical,
           children: [
             _buildCompetition(),
-            Container(
-              height: 90,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  _buildCategoryCard(
-                      'PlayStation',
-                      Colors.blue,
-                      Image.asset(
-                        R.icon.playstation,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'XBOX',
-                      Colors.green,
-                      Image.asset(
-                        R.icon.xbox,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'Nintendo',
-                      Colors.red,
-                      Image.asset(
-                        R.icon.nintendo,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'PC',
-                      Colors.blueGrey,
-                      Image.asset(
-                        R.icon.computer,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'سماعات',
-                      Colors.green,
-                      Image.asset(
-                        R.icon.headphone,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'كيبوردات',
-                      Colors.deepPurple,
-                      Image.asset(
-                        R.icon.keyboard,
-                        height: 35,
-                      )),
-                  _buildCategoryCard(
-                      'ماوسات',
-                      Colors.deepOrange,
-                      Image.asset(
-                        R.icon.mouse,
-                        height: 35,
-                      )),
-                  Padding(
-                      padding: EdgeInsets.only(right: 15),
-                      child: _buildCategoryCard(
-                          'بطاقات',
-                          Colors.teal,
-                          Image.asset(
-                            R.icon.cards,
-                            height: 35,
-                          ))),
-                ],
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Container(
+                height: 200,
+                child: GridView(
+                  scrollDirection: Axis.horizontal,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: (90 / 100),
+                      crossAxisCount: 2),
+                  children: [
+                    _buildCategoryCard(
+                        'PlayStation',
+                        Colors.blue,
+                        Image.asset(
+                          R.icon.playstation,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'XBOX',
+                        Colors.green,
+                        Image.asset(
+                          R.icon.xbox,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Nintendo',
+                        Colors.red,
+                        Image.asset(
+                          R.icon.nintendo,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'PC',
+                        Colors.blueGrey,
+                        Image.asset(
+                          R.icon.computer,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'سماعات',
+                        Colors.green,
+                        Image.asset(
+                          R.icon.headphone,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'كيبوردات',
+                        Colors.deepPurple,
+                        Image.asset(
+                          R.icon.keyboard,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'ماوسات',
+                        Colors.deepOrange,
+                        Image.asset(
+                          R.icon.mouse,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'بطاقات',
+                        Colors.teal,
+                        Image.asset(
+                          R.icon.cards,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'كرسي',
+                        Colors.amber,
+                        Image.asset(
+                          R.icon.chair,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'عروض اسبوعية',
+                        Colors.redAccent,
+                        Image.asset(
+                          R.icon.sale,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Streaming',
+                        Colors.blueGrey,
+                        Image.asset(
+                          R.icon.rec,
+                          height: 35,
+                        )),
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -268,9 +294,8 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 child: Text(
                   'اذا كان هناك خطأ في التطبيق او عدم معرفة طريقة الطلب يمكنك الاتصال بنا | 0791433878',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface
-                  ),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.onSurface),
                 ),
               ),
             )
@@ -289,10 +314,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               });
         },
         child: Padding(
-            padding: EdgeInsets.only(left: 15),
+            padding: EdgeInsets.only(left: 15, bottom: 8),
             child: Container(
               height: 90,
-              width: 100,
               decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -358,8 +382,45 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       isFromPrize: true));
             },
             child: prizeProduct.images.isNotEmpty
-                ? Container(
-                    child: Image.network(prizeProduct.images[0].originalSource))
+                ? Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                          child: Image.network(
+                              prizeProduct.images[0].originalSource)),
+                      state.duration != null
+                          ? Positioned(
+                              top: 0,
+                              child: Padding(
+                                  padding: EdgeInsets.only(top: 5),
+                                  child: SlideCountdownSeparated(
+                                    duration: state.duration,
+                                  )))
+                          : Container(),
+                      state.lastWinner != null
+                          ? Positioned(
+                              bottom: 0,
+                              child: Padding(
+                                padding: EdgeInsets.all(5),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10))),
+                                  padding: EdgeInsets.all(5),
+                                  child: Text(
+                                    'Last winner: ${state.lastWinner}',
+                                    style: TextStyle(
+                                        backgroundColor: Colors.red,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                    ],
+                  )
                 : Container(),
           );
         }
@@ -425,7 +486,11 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                 product.title,
                                 textAlign: TextAlign.center,
                                 maxLines: 1,
-                                style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -436,13 +501,18 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                         : '',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context).colorScheme.onSurface,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface,
                                         decoration: TextDecoration.lineThrough),
                                   ),
                                   Text(
                                     ' ${product.price} JD',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSurface),
                                   ),
                                 ],
                               )
@@ -574,8 +644,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                     style: TextStyle(
                         height: 0.5,
                         fontWeight: FontWeight.bold,
-                        color:
-                            _isSelectedCategory ? Theme.of(context).colorScheme.onSurface : Colors.grey),
+                        color: _isSelectedCategory
+                            ? Theme.of(context).colorScheme.onSurface
+                            : Colors.grey),
                   ));
             }));
   }

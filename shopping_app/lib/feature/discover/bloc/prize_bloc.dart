@@ -19,9 +19,7 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
         super(PrizeLoading());
 
   @override
-  Stream<PrizeState> mapEventToState(
-    PrizeEvent event,
-  ) async* {
+  Stream<PrizeState> mapEventToState(PrizeEvent event,) async* {
     if (event is LoadingPrizeEvent) {
       yield* _mapLoadPrizeEvent(event);
     }
@@ -33,14 +31,21 @@ class PrizeBloc extends Bloc<PrizeEvent, PrizeState> {
     return super.close();
   }
 
-  Stream<PrizeState> _mapLoadPrizeEvent(
-      LoadingPrizeEvent event) async* {
+  Stream<PrizeState> _mapLoadPrizeEvent(LoadingPrizeEvent event) async* {
     yield StartPrizeLoad();
 
     List<Product> prize = await _discoverRepository.getPrizeProduct();
+    var competitionDate = prize[1].description != ''
+        ? prize[1].description.split('/')
+        : null;
 
     yield DiscoverPrizeFinished(
         prize: prize.first,
+        duration: competitionDate != null ? DateTime.utc(
+            int.parse(competitionDate[0]),
+            int.parse(competitionDate[1]), int.parse(competitionDate[2]))
+            .difference(DateTime.now()) : null,
+        lastWinner: prize[2].description != '' ? prize[2].description : null,
         isSuccess: true);
   }
 }

@@ -56,7 +56,7 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
             return GridView.builder(
               itemCount: products.length ?? 0,
               gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 var product = products[index];
                 return _buildCardProduct(product);
@@ -142,15 +142,38 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                       child: Text(
                         product.title,
                         maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16, bottom: 12),
-                      child: Text(
-                        "${formatCurrency.format(double.parse(product.price))} JD",
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
-                      ),
+                    Row(
+                      children: [
+                        product.compareAtPrice != null
+                            ? Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 16, bottom: 12),
+                                child: Text(
+                                  '${product.compareAtPrice} JD',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      decoration: TextDecoration.lineThrough),
+                                ),
+                              )
+                            : Container(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 16, bottom: 12),
+                          child: Text(
+                            "${formatCurrency.format(double.parse(product.price))} JD",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSurface),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -1,6 +1,6 @@
 const String getPrizeProductQuery = r'''
 query(){
-  products(first: 1, query: "title: مسابقة على الكرسي الخارق") {
+  products(first: 3, query: "title: 'Last winner' OR 'Date for competition' OR 'مسابقة على الكرسي الخارق'") {
     edges {
       node {
         id,
