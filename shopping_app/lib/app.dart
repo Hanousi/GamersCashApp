@@ -90,7 +90,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         child: MaterialApp(
-            darkTheme: ThemeData.dark(),
             initialRoute: widget.initialRoute,
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRouter.generateRoute,
