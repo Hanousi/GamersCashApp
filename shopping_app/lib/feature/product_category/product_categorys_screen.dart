@@ -164,13 +164,18 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                                 ),
                               )
                             : Container(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16, bottom: 12),
-                          child: Text(
-                            "${formatCurrency.format(double.parse(product.price))} JD",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.onSurface),
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(right: 16, bottom: 12),
+                            child: Text(
+                              "${formatCurrency.format(double.parse(product.price))} JD",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface),
+                            ),
                           ),
                         ),
                       ],

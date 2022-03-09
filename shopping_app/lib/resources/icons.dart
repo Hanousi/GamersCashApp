@@ -13,9 +13,19 @@ class Icon {
   String keyboard = 'assets/icon/keyboard.png';
   String headphone = 'assets/icon/headphone.png';
   String cards = 'assets/icon/cards.png';
-  String chair = 'assets/icon/chair.png';
   String rec = 'assets/icon/rec.png';
   String sale = 'assets/icon/sale.png';
+  String cables = 'assets/icon/cables.png';
+  String consoles = 'assets/icon/consoles.png';
+  String gameRoom = 'assets/icon/gameRoom.png';
+  String newCds = 'assets/icon/newCds.png';
+  String usedCds = 'assets/icon/usedCds.png';
+  String spareparts = 'assets/icon/spareparts.png';
+  String speakers = 'assets/icon/speakers.png';
+  String wrench = 'assets/icon/wrench.png';
+  String toys = 'assets/icon/toys.png';
+  String spotlight = 'assets/icon/spotlight.png';
+  String mobile = 'assets/icon/mobile.png';
 
   String masterCard = 'assets/images/mastercard.png';
   String amexCard = 'assets/images/amex.png';

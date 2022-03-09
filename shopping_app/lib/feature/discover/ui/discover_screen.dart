@@ -102,9 +102,15 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                   padding: EdgeInsets.only(right: 10),
                   scrollDirection: Axis.horizontal,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: (85 / 100),
-                      crossAxisCount: 2),
+                      childAspectRatio: (85 / 100), crossAxisCount: 2),
                   children: [
+                    _buildCategoryCard(
+                        'New Offers',
+                        Colors.redAccent,
+                        Image.asset(
+                          R.icon.sale,
+                          height: 35,
+                        )),
                     _buildCategoryCard(
                         'PlayStation',
                         Colors.blue,
@@ -127,59 +133,122 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                           height: 35,
                         )),
                     _buildCategoryCard(
-                        'PC',
+                        'Computer',
                         Colors.blueGrey,
                         Image.asset(
                           R.icon.computer,
                           height: 35,
                         )),
                     _buildCategoryCard(
-                        'سماعات',
-                        Colors.green,
-                        Image.asset(
-                          R.icon.headphone,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'كيبوردات',
-                        Colors.deepPurple,
-                        Image.asset(
-                          R.icon.keyboard,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'ماوسات',
-                        Colors.deepOrange,
-                        Image.asset(
-                          R.icon.mouse,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'بطاقات',
+                        'Gift Cards',
                         Colors.teal,
                         Image.asset(
                           R.icon.cards,
                           height: 35,
                         )),
                     _buildCategoryCard(
-                        'كرسي',
-                        Colors.amber,
+                        'Mobile',
+                        Colors.lime,
                         Image.asset(
-                          R.icon.chair,
+                          R.icon.mobile,
                           height: 35,
                         )),
                     _buildCategoryCard(
-                        'عروض اسبوعية',
-                        Colors.redAccent,
-                        Image.asset(
-                          R.icon.sale,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Streaming',
+                        'Recording & Streaming',
                         Colors.blueGrey,
                         Image.asset(
                           R.icon.rec,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Headsets',
+                        Colors.blueAccent,
+                        Image.asset(
+                          R.icon.headphone,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Room Design',
+                        Colors.lightGreen,
+                        Image.asset(
+                          R.icon.gameRoom,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'New CDs',
+                        Colors.greenAccent,
+                        Image.asset(
+                          R.icon.newCds,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Used CDs',
+                        Colors.cyanAccent,
+                        Image.asset(
+                          R.icon.usedCds,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Speakers',
+                        Colors.orange,
+                        Image.asset(
+                          R.icon.speakers,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Toys & Wearables',
+                        Colors.pink,
+                        Image.asset(
+                          R.icon.toys,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Keyboards',
+                        Colors.deepPurple,
+                        Image.asset(
+                          R.icon.keyboard,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Cables',
+                        Colors.tealAccent,
+                        Image.asset(
+                          R.icon.cables,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Laptop Spareparts',
+                        Colors.yellow,
+                        Image.asset(
+                          R.icon.spareparts,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Hardware & Software',
+                        Colors.grey,
+                        Image.asset(
+                          R.icon.wrench,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Gaming Devices',
+                        Colors.blueGrey,
+                        Image.asset(
+                          R.icon.consoles,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Lighting Accessories',
+                        Colors.purple,
+                        Image.asset(
+                          R.icon.spotlight,
+                          height: 35,
+                        )),
+                    _buildCategoryCard(
+                        'Mouses',
+                        Colors.blue,
+                        Image.asset(
+                          R.icon.mouse,
                           height: 35,
                         )),
                   ],
@@ -324,11 +393,15 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               child: Column(
                 children: [
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
+                      padding: EdgeInsets.symmetric(vertical: 10),
                       child: image),
-                  Text(
-                    text,
-                    style: TextStyle(color: Colors.white),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 3, left: 2, right: 2),
+                    child: Text(
+                      text,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
                   )
                 ],
               ),
@@ -389,7 +462,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       Container(
                           child: Image.network(
                               prizeProduct.images[0].originalSource)),
-                      state.duration != null
+                      state.duration != null && !state.duration.isNegative
                           ? Positioned(
                               top: 0,
                               child: Padding(
