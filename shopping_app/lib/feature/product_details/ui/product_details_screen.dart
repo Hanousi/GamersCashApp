@@ -455,6 +455,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     if (widget.isFromSale) {
       Navigator.pop(context);
     }
+
     widget.home.routeTo(2);
   }
 
