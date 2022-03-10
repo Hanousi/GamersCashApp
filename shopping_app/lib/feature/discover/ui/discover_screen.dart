@@ -140,13 +140,6 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                           height: 35,
                         )),
                     _buildCategoryCard(
-                        'Gift Cards',
-                        Colors.teal,
-                        Image.asset(
-                          R.icon.cards,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
                         'Mobile',
                         Colors.lime,
                         Image.asset(
