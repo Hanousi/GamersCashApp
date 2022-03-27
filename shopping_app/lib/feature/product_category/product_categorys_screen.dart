@@ -111,7 +111,8 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
     return InkWell(
       onTap: () => Navigator.pushNamed(
           context, RouteConstant.productDetailsRoute,
-          arguments: ScreenArguments(product: product, home: widget.home, isFromSale: true)),
+          arguments: ScreenArguments(
+              product: product, home: widget.home, isFromSale: true)),
       child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.0),
@@ -125,14 +126,10 @@ class _ProductCategoryScreenState extends State<ProductCategoryScreen> {
                     Expanded(
                       child: Align(
                         alignment: Alignment.center,
-                        child: Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.rotationY(pi),
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 4),
-                              child: Image.network(
-                                product.images[0].originalSource,
-                              ),
+                        child: Padding(
+                            padding: EdgeInsets.only(top: 4),
+                            child: Image.network(
+                              product.images[0].originalSource,
                             )),
                       ),
                     ),
