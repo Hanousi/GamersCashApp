@@ -97,12 +97,12 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             Padding(
               padding: EdgeInsets.only(top: 10),
               child: Container(
-                height: 200,
+                height: 540,
                 child: GridView(
                   padding: EdgeInsets.only(right: 10),
-                  scrollDirection: Axis.horizontal,
+                  physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: (85 / 100), crossAxisCount: 2),
+                      childAspectRatio: (100 / 80), crossAxisCount: 3),
                   children: [
                     _buildCategoryCard(
                         'New Offers',
@@ -110,140 +110,198 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                         Image.asset(
                           R.icon.sale,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.productCategory,
+                          arguments: {
+                            "listProduct": <Product>[],
+                            "categoryName": 'New Offers',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'PlayStation',
                         Colors.blue,
                         Image.asset(
                           R.icon.playstation,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'PlayStation',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'XBOX',
                         Colors.green,
                         Image.asset(
                           R.icon.xbox,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'XBOX',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Nintendo',
                         Colors.red,
                         Image.asset(
                           R.icon.nintendo,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Nintendo',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Computer',
                         Colors.blueGrey,
                         Image.asset(
                           R.icon.computer,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Computer',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Mobile',
                         Colors.lime,
                         Image.asset(
                           R.icon.mobile,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Mobile',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Recording & Streaming',
                         Colors.blueGrey,
                         Image.asset(
                           R.icon.rec,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Recording & Streaming',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Headsets',
                         Colors.blueAccent,
                         Image.asset(
                           R.icon.headphone,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Headsets',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Room Design',
                         Colors.lightGreen,
                         Image.asset(
                           R.icon.gameRoom,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Room Design',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'New CDs',
                         Colors.greenAccent,
                         Image.asset(
                           R.icon.newCds,
                           height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Used CDs',
-                        Colors.cyanAccent,
-                        Image.asset(
-                          R.icon.usedCds,
-                          height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.productCategory,
+                          arguments: {
+                            "listProduct": <Product>[],
+                            "categoryName": 'New CDs',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Speakers',
                         Colors.orange,
                         Image.asset(
                           R.icon.speakers,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Speakers',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Toys & Wearables',
                         Colors.pink,
                         Image.asset(
                           R.icon.toys,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Toys & Wearables',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Keyboards',
                         Colors.deepPurple,
                         Image.asset(
                           R.icon.keyboard,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Keyboards',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Cables',
                         Colors.tealAccent,
                         Image.asset(
                           R.icon.cables,
                           height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Laptop Spareparts',
-                        Colors.yellow,
-                        Image.asset(
-                          R.icon.spareparts,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Hardware & Software',
-                        Colors.grey,
-                        Image.asset(
-                          R.icon.wrench,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Gaming Devices',
-                        Colors.blueGrey,
-                        Image.asset(
-                          R.icon.consoles,
-                          height: 35,
-                        )),
-                    _buildCategoryCard(
-                        'Lighting Accessories',
-                        Colors.purple,
-                        Image.asset(
-                          R.icon.spotlight,
-                          height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.productCategory,
+                          arguments: {
+                            "listProduct": <Product>[],
+                            "categoryName": 'Cables',
+                            "home": widget.home
+                          });
+                    }),
                     _buildCategoryCard(
                         'Mouses',
                         Colors.blue,
                         Image.asset(
                           R.icon.mouse,
                           height: 35,
-                        )),
+                        ), () {
+                      Navigator.pushNamed(context, RouteConstant.categoryViewer,
+                          arguments: {
+                            "categoryName": 'Mouses',
+                            "home": widget.home
+                          });
+                    }),
                   ],
                 ),
               ),
@@ -366,16 +424,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         ));
   }
 
-  Widget _buildCategoryCard(String text, Color color, Image image) {
+  Widget _buildCategoryCard(
+      String text, Color color, Image image, Function function) {
     return GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(context, RouteConstant.productCategory,
-              arguments: {
-                "listProduct": <Product>[],
-                "categoryName": text,
-                "home": widget.home
-              });
-        },
+        onTap: function,
         child: Padding(
             padding: EdgeInsets.only(left: 15, bottom: 8),
             child: Container(
@@ -386,7 +438,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               child: Column(
                 children: [
                   Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: EdgeInsets.only(top: 15, bottom: 10),
                       child: image),
                   Padding(
                     padding: EdgeInsets.only(bottom: 3, left: 2, right: 2),

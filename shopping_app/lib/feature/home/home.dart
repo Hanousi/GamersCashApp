@@ -47,6 +47,7 @@ class HomeScreenState extends State<HomeScreen> {
         body: SizedBox.expand(
           child: PageView(
             controller: _pageController,
+              physics: NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               setState(() => _currentIndex = index);
               if (index != 1) {

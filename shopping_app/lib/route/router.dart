@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/feature/auth/login/login_screen.dart';
 import 'package:shopping_app/feature/auth/register/register_screen.dart';
 import 'package:shopping_app/feature/cart/ui/cart_screen.dart';
+import 'package:shopping_app/feature/category_viewer/category_viewer_screen.dart';
 import 'package:shopping_app/feature/checkout/checkout_screen.dart';
 import 'package:shopping_app/feature/credit_card_details/card_details_screen.dart';
 import 'package:shopping_app/feature/discover/model/product.dart';
@@ -52,6 +53,13 @@ class AppRouter {
         HomeScreenState home = arguments['home'];
 
         return SlideRouteBuilder(page: ProductCategoryScreen(listProduct: listProduct, categoryName: categoryName, home: home));
+      case RouteConstant.categoryViewer:
+        final Map arguments = settings.arguments as Map;
+
+        String categoryName = arguments['categoryName'];
+        HomeScreenState home = arguments['home'];
+
+        return SlideRouteBuilder(page: CategoryViewerScreen(categoryName: categoryName, home: home));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
